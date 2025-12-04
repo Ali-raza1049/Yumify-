@@ -1,0 +1,243 @@
+import { Utensils, Award, ShoppingBag, Clock } from "lucide-react";
+import avater1 from "../assets/images/avater1.jpg";
+import avater2 from "../assets/images/avater2.jpg";
+import avater3 from "../assets/images/avater3.jpg";
+
+
+export const cardsData = [
+  {
+    icon: Award,
+    title: "Master Chefs",
+    text: "Our chefs are world-class professionals with years of culinary experience.",
+    iconcolor: "text-yellow-500",
+  },
+  {
+    icon: Utensils,
+    title: "Quality Food",
+    text: "We use only the freshest ingredients to create mouth-watering dishes.",
+    iconcolor: "text-red-500",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Online Order",
+    text: "Easily order your favorite meals online and get them delivered fast.",
+    iconcolor: "text-red-500",
+  },
+  {
+    icon: Clock,
+    title: "24/7 Service",
+    text: "Our team is always ready to serve you at any time of the day.",
+    iconcolor: "text-blue-500",
+  },
+];
+
+export const menuData = {
+  Pizza: [
+    {
+      name: "Cheese Pizza",
+      price: 12,
+      img: "img/menu-1.jpg",
+      desc: "Classic cheesy goodness with fresh herbs.",
+    },
+    {
+      name: "Pepperoni Pizza",
+      price: 15,
+      img: "img/menu-2.jpg",
+      desc: "Loaded with spicy pepperoni slices.",
+    },
+  ],
+  Burger: [
+    {
+      name: "Beef Burger",
+      price: 10,
+      img: "img/menu-4.jpg",
+      desc: "Juicy grilled beef patty with fresh veggies.",
+    },
+    {
+      name: "Chicken Burger",
+      price: 9,
+      img: "img/menu-4.jpg",
+      desc: "Crispy fried chicken with mayo sauce.",
+    },
+  ],
+  Fries: [
+    {
+      name: "Classic Fries",
+      price: 5,
+      img: "img/menu-5.jpg",
+      desc: "Crispy golden french fries.",
+    },
+    {
+      name: "Peri Peri Fries",
+      price: 6,
+      img: "img/menu-6.jpg",
+      desc: "Spicy fries tossed in peri peri seasoning.",
+    },
+  ],
+};
+
+export const testimonials = [
+  {
+    img: avater1,
+    name: "Emily Johnson",
+    role: "Food Blogger",
+    text: "Yumify’s food is absolutely delightful! Fresh, tasty, and presented beautifully. Highly recommend to food lovers!",
+  },
+  {
+    img: avater2,
+    name: "Mark Thompson",
+    role: "Chef Enthusiast",
+    text: "From the first bite, I could tell the quality and passion behind every dish. Truly an amazing dining experience!",
+  },
+  {
+    img: avater3,
+    name: "Sophia Lee",
+    role: "Food Critic",
+    text: "Yumify combines flavor, freshness, and ambiance perfectly. The team is professional and the dishes are top-notch!",
+  },
+];
+
+export const ordersData = [
+  {
+    id: "ORD-1847",
+    customer: "Sarah",
+    email: "sarah.j@email.com",
+    items: 2,
+    total: 28.5,
+    status: "Delivered",
+    date: "2024-11-25",
+    time: "14:30",
+  },
+  {
+    id: "ORD-1848",
+    customer: "Hamid Ali",
+    email: "Hamid.j@email.com",
+    items: 3,
+    total: 34.5,
+    status: "Preparing",
+    date: "2024-11-25",
+    time: "15:30",
+  },
+  {
+    id: "ORD-1849",
+    customer: "Zain Gujjar",
+    email: "zain.j@email.com",
+    items: 4,
+    total: 48.5,
+    status: "Cancelled",
+    date: "2024-11-25",
+    time: "16:30",
+  },
+  {
+    id: "ORD-1850",
+    customer: "Zahid Jutt",
+    email: "zahid.j@email.com",
+    items: 4,
+    total: 48.5,
+    status: "In Transit",
+    date: "2024-11-25",
+    time: "15:30",
+  },
+];
+
+
+export const categories = [
+  "All Categories",
+  "Pizza",
+  "Burger",
+  "Fries",
+];
+
+export const menuItems = [
+  {
+    id: 1,
+    name: "Margherita Pizza",
+    category: "Pizza",
+    status: "Active",
+    img: "",
+  },
+  {
+    id: 2,
+    name: "Cheeseburger Deluxe",
+    category: "Burger",
+    status: "Active",
+    img: "",
+  },
+  {
+    id: 3,
+    name: "Pepperoni Pizza",
+    category: "Pizza",
+    status: "Active",
+    img: "",
+  },
+  {
+    id: 4,
+    name: "Zinger Burger",
+    category: "Burger",
+    status: "Active",
+    img: "",
+  },
+  {
+    id: 5,
+    name: "Simple Fries",
+    category: "Fries",
+    status: "Active",
+    img: "",
+  },
+  {
+    id: 6,
+    name: "Loaded Fries",
+    category: "Fries",
+    status: "Active",
+    img: "",
+  },
+];
+
+
+
+export const salesData = [
+    { day: "Mon", sales: 4500, orders: 20 },
+    { day: "Tue", sales: 5200, orders: 18 },
+    { day: "Wed", sales: 4900, orders: 19 },
+    { day: "Thu", sales: 6400, orders: 22 },
+    { day: "Fri", sales: 7800, orders: 25 },
+    { day: "Sat", sales: 9200, orders: 28 },
+    { day: "Sun", sales: 8500, orders: 26 },
+  ];
+
+  export const categoryData = [
+    { name: "Pizza", value: 35, color: "#8b5cf6" },
+    { name: "Burgers", value: 25, color: "#f43f5e" },
+    { name: "Pasta", value: 20, color: "#fb923c" },
+    { name: "Salads", value: 12, color: "#22c55e" },
+    { name: "Drinks", value: 8, color: "#3b82f6" },
+  ];
+
+  export  const popularItems = [
+    { name: "Pep Pizza", orders: 320, price: "$12.99" },
+    { name: "Cheese Burger", orders: 270, price: "$9.49" },
+    { name: "Chicken Pasta", orders: 210, price: "$11.2" },
+    { name: "Veggie Salad", orders: 180, price: "$7.89" },
+  ];
+
+  export const recentOrders = [
+    { id: "#1021", customer: "John Doe", total: "$29.99", status: "Delivered" },
+    {
+      id: "#1022",
+      customer: "Sarah Smith",
+      total: "$18.50",
+      status: "Pending",
+    },
+    {
+      id: "#1023",
+      customer: "David Wilson",
+      total: "$42.10",
+      status: "Delivered",
+    },
+    {
+      id: "#1024",
+      customer: "Emily Clark",
+      total: "$15.75",
+      status: "Cancelled",
+    },
+  ];
