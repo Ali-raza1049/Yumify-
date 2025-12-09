@@ -4,6 +4,7 @@ import avater2 from "../assets/images/avater2.jpg";
 import avater3 from "../assets/images/avater3.jpg";
 
 
+
 export const cardsData = [
   {
     icon: Award,
@@ -239,5 +240,100 @@ export const salesData = [
       customer: "Emily Clark",
       total: "$15.75",
       status: "Cancelled",
+    },
+  ];
+
+
+   export const customers = [
+    {
+      initials: "AR",
+      name: "Ali Raza",
+      email: "Ali.R@email.com",
+      phone: "+92 0317608655",
+      location: "Lahore, Pk",
+      totalOrders: 47,
+      totalSpent: 1248.5,
+      lastOrder: "2024-11-25",
+      gradient: "from-purple-500 to-pink-500",
+      status: "active",
+    },
+    {
+      initials: "HM",
+      name: "Hamid Munir",
+      email: "hamid.m@email.com",
+      phone: "+92 3250705924",
+      location: "Bhawalpur, Pk",
+      totalOrders: 32,
+      totalSpent: 845.2,
+      lastOrder: "2024-11-12",
+      gradient: "from-pink-500 to-rose-500",
+      status: "active",
+    },
+    {
+      initials: "MZ",
+      name: "M Zahid",
+      email: "zahid.m@email.com",
+      phone: "+92 0313456456",
+      location: "Sialkot, PK",
+      totalOrders: 61,
+      totalSpent: 1542.9,
+      lastOrder: "2024-12-01",
+      gradient: "from-orange-500 to-yellow-500",
+      status: "active",
+    },
+    {
+      initials: "SA",
+      name: "Sayyam Ali",
+      email: "sayyam.m@email.com",
+      phone: "+92 03134578956",
+      location: "Fort Abbas, PK",
+      totalOrders: 61,
+      totalSpent: 1542.9,
+      lastOrder: "2024-12-01",
+      gradient: "from-orange-500 to-yellow-500",
+      status: "active",
+    },
+    {
+      initials: "MW",
+      name: "M waqas",
+      email: "waqas.m@email.com",
+      phone: "+92 031345645667",
+      location: "Haroonabad, PK",
+      totalOrders: 61,
+      totalSpent: 1542.9,
+      lastOrder: "2024-12-01",
+      gradient: "from-orange-500 to-yellow-500",
+      status: "active",
+    },
+  ];
+
+ export const stats = [
+    {
+      label: "Total Customers",
+      value: "2,847",
+      bg: "bg-purple-100",
+      color: "text-purple-600",
+      icon: "🧑‍🤝‍🧑",
+    },
+    {
+      label: "Avg. Order Value",
+      value: "$28.45",
+      bg: "bg-green-100",
+      color: "text-green-600",
+      icon: "💲",
+    },
+    {
+      label: "Active Customers",
+      value: "2,341",
+      bg: "bg-blue-100",
+      color: "text-blue-600",
+      icon: "📦",
+    },
+    {
+      label: "New This Month",
+      value: "+184",
+      bg: "bg-orange-100",
+      color: "text-orange-600",
+      icon: "📅",
     },
   ];

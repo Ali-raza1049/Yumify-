@@ -89,18 +89,17 @@ export function Sidebar() {
           >
             <Package size={20} /> Inventory
           </Link>
-          <a
+          <Link to="/customer"
             className="p-3 rounded-xl hover:bg-gray-100 flex items-center gap-3"
-            href="#"
+            
           >
             <Users size={20} /> Customers
-          </a>
-          <a
+          </Link>
+          <Link to="/analytics"
             className="p-3 rounded-xl hover:bg-gray-100 flex items-center gap-3"
-            href="#"
           >
             <BarChart size={20} /> Analytics
-          </a>
+          </Link>
           <a
             className="p-3 rounded-xl hover:bg-gray-100 flex items-center gap-3"
             href="#"

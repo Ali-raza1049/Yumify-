@@ -7,6 +7,8 @@ import MenuPage from "../pages/admin/MenuPage";
 import OrderPage from "../pages/admin/OrderPage"
 import AddItemPage from "../pages/admin/AddItemPage"
 import InventoryPage from "../pages/admin/InventoryPage";
+import AnalyticsPage from "../pages/admin/AnalyticsPage";
+import CustomerManagement from "../pages/admin/CustomerManagement";
 
 const AdminRoutes = () => {
   return (
@@ -17,6 +19,8 @@ const AdminRoutes = () => {
         <Route path="/menu" element={<MenuPage />} />
          <Route path="/add-item" element={<AddItemPage/>} />
          <Route path="/inventory" element={<InventoryPage/>} />
+          <Route path="/analytics" element={<AnalyticsPage/>} />
+          <Route path="/customer" element={<CustomerManagement/>} />
   
       </Route>
     </Routes>
