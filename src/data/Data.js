@@ -2,6 +2,13 @@ import { Utensils, Award, ShoppingBag, Clock } from "lucide-react";
 import avater1 from "../assets/images/avater1.jpg";
 import avater2 from "../assets/images/avater2.jpg";
 import avater3 from "../assets/images/avater3.jpg";
+import Crown from "../assets/images/crown-crust.jpg"
+import Fajita from "../assets/images/Fajita.jpg"
+import ChickenDeluxe from "../assets/images/Chickendeluxe.jpg"
+import BeefBurger from "../assets/images/BeefBurger.jpeg"
+import PizzaHub from "../assets/images/pizza-hub.jpg"
+import PizzaBanner from "../assets/images/pizzabanner.jpg"
+import CheeseBurger from "../assets/images/BeefCheeseburger.jpeg"
 
 
 
@@ -337,3 +344,120 @@ export const salesData = [
       icon: "📅",
     },
   ];
+
+  export const restaurants = [
+  {
+    id: 1,
+    name: "Burger Paradise",
+    category: "American, Burgers",
+    rating: 4.5,
+    time: "20-30 min",
+    price: "$$",
+    discount: "20% OFF",
+    image: BeefBurger,
+  },
+  {
+    id: 2,
+    name: "Pizza Town",
+    category: "Italian, Pizza",
+    rating: 4.7,
+    time: "25-35 min",
+    price: "$$",
+    discount: "15% OFF",
+    image: PizzaBanner,
+  },
+  {
+    id: 3,
+    name: "Daddy Zinger",
+    category: "Pakistan , Burger",
+    rating: 4.8,
+    time: "30-40 min",
+    price: "$$$",
+    discount: "25% OFF",
+    image:CheeseBurger,
+  },
+];
+
+export const restaurantData = [
+  {
+    id: 1,
+    name: "Burger Paradise",
+    category: "Burger, Lahore",
+    rating: 4.5,
+    time: "20-30 min",
+    distance: "2.5 km away",
+    banner:
+      "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=1200&q=80",
+    menu: [
+      {
+        id: 1,
+        title: "Classic Beef Burger",
+        desc: "Juicy beef patty with lettuce, tomato, and special sauce",
+        price: "$12.99",
+        image:BeefBurger,
+      },
+      {
+        id: 2,
+        title: "Chicken Deluxe",
+        desc: "Crispy chicken breast with mayo and pickles",
+        price: "$11.99",
+        image:ChickenDeluxe,
+      },
+    ],
+    categories: ["All", "Burgers", "Chicken", "Drinks"],
+  },
+  {
+ id: 2,
+    name: "Pizza Town",
+    category: "Pizza, Lahore",
+    rating: 4.5,
+    time: "20-30 min",
+    distance: "2.5 km away",
+    banner: PizzaHub,
+    menu: [
+      {
+        id: 1,
+        title: "Fajita pizza",
+        desc: "Juicy creamy pizza with more chese",
+        price: "$12.99",
+        image:Fajita,
+      },
+      {
+        id: 2,
+        title: "Crown crust ",
+        desc: "Crispy chicken breast with mayo and pickles",
+        price: "$11.99",
+        image: Crown,
+      },
+    ],
+    categories: ["All", "pizza", "sides", "Drinks"],
+  },
+   {
+    id: 3,
+    name: "Daddy Zinger",
+    category: "Burger, Lahore",
+    rating: 4.5,
+    time: "20-30 min",
+    distance: "2.5 km away",
+    banner:
+      "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=1200&q=80",
+    menu: [
+      {
+        id: 1,
+        title: "Classic Beef Burger",
+        desc: "Juicy beef patty with lettuce, tomato, and special sauce",
+        price: "$12.99",
+        image:BeefBurger,
+      },
+      {
+        id: 2,
+        title: "Chicken Deluxe",
+        desc: "Crispy chicken breast with mayo and pickles",
+        price: "$11.99",
+        image:ChickenDeluxe,
+      },
+    ],
+    categories: ["All", "Burgers", "Chicken", "Drinks"],
+  },
+  
+];

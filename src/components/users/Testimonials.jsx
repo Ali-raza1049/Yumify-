@@ -1,9 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-
 import {testimonials} from "../../data/Data"
-
-
 
 const Testimonials = () => {
   const ref = useRef(null);

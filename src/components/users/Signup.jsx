@@ -1,99 +1,115 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
+import React, { useState } from "react";
+import { User, Mail, Phone, Lock } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const Signup = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    navigate('/signin'); // Redirect to sign in
-  };
-
-  const handleBack = () => {
-    window.history.back();
-  };
+export  function Signup() {
+  const [role, setRole] = useState("Customer");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient from-yellow-200 via-pink-200 to-red-200 p-4 m-8">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-md bg-white p-8 rounded-3xl shadow-xl border border-pink-100 relative"
-      >
-        {/* Back Button */}
-        <button
-          onClick={handleBack}
-          className="absolute left-4 top-4 flex items-center gap-1 text-pink-600 hover:text-pink-700 transition font-medium"
-        >
-          <ArrowLeft size={20} /> Back
-        </button>
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-100 via-orange-50 to-pink-50 p-6 mt-16">
+      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl grid grid-cols-1 md:grid-cols-2 overflow-hidden">
+        {/* Left – Form */}
+        <div className="p-10">
+          <h2 className="text-3xl font-bold text-gray-900">Create an account</h2>
+          <p className="text-gray-500 mt-2 mb-8">
+            Start ordering delicious food in minutes
+          </p>
 
-        {/* Header */}
-        <div className="text-center mb-6">
-          <h1 className="text-4xl font-bold text-orange-700 ">Yumify</h1>
-          <p className="text-orange-700  mt-1">Create your account</p>
+          <div className="space-y-5">
+            {/* Full Name */}
+            <div className="relative">
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+              <input
+                type="text"
+                placeholder="Full Name"
+                className="w-full pl-11 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
+              />
+            </div>
+
+            {/* Email */}
+            <div className="relative">
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+              <input
+                type="email"
+                placeholder="Email Address"
+                className="w-full pl-11 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
+              />
+            </div>
+
+            {/* Phone */}
+            <div className="relative">
+              <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                className="w-full pl-11 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
+              />
+            </div>
+
+            {/* Password */}
+            <div className="relative">
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+              <input
+                type="password"
+                placeholder="Password"
+                className="w-full pl-11 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Role Selection */}
+          <div className="mt-6">
+            <p className="text-sm font-medium text-gray-700 mb-3">Register as</p>
+            <div className="flex gap-3">
+              {['Customer', 'Admin'].map(item => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => setRole(item)}
+                  className={`flex-1 py-3 rounded-lg border text-sm font-medium transition \
+                    ${role === item 
+                      ? 'bg-linear-to-r from-orange-500 to-pink-500 text-white border-transparent shadow'
+                      : 'bg-white hover:bg-orange-50 hover:border-orange-400'}`}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Terms */}
+          <div className="flex items-start gap-2 text-sm text-gray-600 mt-6">
+            <input type="checkbox" className="mt-1 accent-orange-500" />
+            <span>
+              I agree to the{' '}
+              <span className="text-orange-500 cursor-pointer">Terms & Conditions</span>{' '}
+              and{' '}
+              <span className="text-orange-500 cursor-pointer">Privacy Policy</span>
+            </span>
+          </div>
+
+          <button className="w-full mt-8 py-3 rounded-lg bg-linear-to-r from-orange-500 via-pink-500 to-rose-500 text-white font-semibold shadow-lg hover:opacity-90 transition">
+            Create Account
+          </button>
+
+          <p className="text-sm text-gray-500 mt-6 text-center">
+            Already have an account?{' '}
+            <Link to="/signin"className="text-orange-500 cursor-pointer font-medium">Sign in</Link>
+          </p>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block mb-1 font-medium text-gray-700">Name</label>
-            <input
-              type="text"
-              className="w-full p-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium text-gray-700">Email</label>
-            <input
-              type="email"
-              className="w-full p-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              className="w-full p-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-400"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-         <button 
-              type="submit"
-           className="bg-yellow-400  text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition duration-300 w-full">
-            Sign up
-        </button>
-        </form>
-
-        <p className="text-center mt-5 text-sm text-orange-700 ">
-          Already have an account?{" "}
-          <Link to="/signin" className="text-orange-700  font-medium">
-            Sign In
-          </Link>
-        </p>
-      </motion.div>
+        {/* Right – Info */}
+        <div className="hidden md:flex flex-col justify-center px-12 bg-linear-to-br from-orange-500 to-pink-500 text-white">
+          <h1 className="text-4xl font-bold mb-4 leading-tight">
+            Food delivered <br /> right to you
+          </h1>
+          <p className="text-lg opacity-95 max-w-sm">
+            Discover top restaurants, track your orders, and enjoy fast delivery
+            from trusted partners.
+          </p>
+        </div>
+      </div>
     </div>
   );
-};
-
+}
 export default Signup;

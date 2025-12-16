@@ -1,5 +1,6 @@
 import React from "react";
 import { Facebook, Instagram, Twitter, MapPin, Mail, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -24,12 +25,14 @@ const Footer = () => {
         <div>
           <h4 className="text-yellow-500 font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2">
-            <li><a href="#home" className="hover:text-yellow-500">Home</a></li>
-            <li><a href="#about" className="hover:text-yellow-500">About</a></li>
-            <li><a href="#menu" className="hover:text-yellow-500">Menu</a></li>
-            <li><a href="#services" className="hover:text-yellow-500">Services</a></li>
-            <li><a href="#reservation" className="hover:text-yellow-500">Reservation</a></li>
-            <li><a href="#contact" className="hover:text-yellow-500">Contact</a></li>
+
+            <li><Link to="/" className="hover:text-yellow-500">Home</Link></li>
+            <li><Link to="/about" className="hover:text-yellow-500">About</Link></li>
+            <li><Link to="/restaurants" className="hover:text-yellow-500">Restaurants</Link></li>
+            <li><Link to="/service" className="hover:text-yellow-500">Services</Link></li>
+            <li><Link to="/addcart" className="hover:text-yellow-500">Add to Cart</Link></li>
+            <li><Link to="/contact" className="hover:text-yellow-500">Contact</Link></li>
+
           </ul>
         </div>
 
@@ -72,7 +75,6 @@ const Footer = () => {
 
       </div>
 
-      {/* Footer Bottom */}
       <div className="mt-12 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
         &copy; {new Date().getFullYear()} Yumify. All Rights Reserved.
       </div>

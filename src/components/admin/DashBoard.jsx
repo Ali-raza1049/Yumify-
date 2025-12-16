@@ -1,67 +1,7 @@
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
-
+import { LineChart,Line, XAxis, YAxis,Tooltip,ResponsiveContainer, Legend, PieChart,Pie,Cell,} from "recharts";
 import { Users, ShoppingCart, DollarSign, Pizza } from "lucide-react";
-
-
+import {salesData, categoryData,popularItems,recentOrders} from '../../data/Data'
 export function DashBoard() {
-  const salesData = [
-    { day: "Mon", sales: 4500, orders: 20 },
-    { day: "Tue", sales: 5200, orders: 18 },
-    { day: "Wed", sales: 4900, orders: 19 },
-    { day: "Thu", sales: 6400, orders: 22 },
-    { day: "Fri", sales: 7800, orders: 25 },
-    { day: "Sat", sales: 9200, orders: 28 },
-    { day: "Sun", sales: 8500, orders: 26 },
-  ];
-
-  const categoryData = [
-    { name: "Pizza", value: 35, color: "#8b5cf6" },
-    { name: "Burgers", value: 25, color: "#f43f5e" },
-    { name: "Pasta", value: 20, color: "#fb923c" },
-    { name: "Salads", value: 12, color: "#22c55e" },
-    { name: "Drinks", value: 8, color: "#3b82f6" },
-  ];
-
-  const popularItems = [
-    { name: "Pep Pizza", orders: 320, price: "$12.99" },
-    { name: "Cheese Burger", orders: 270, price: "$9.49" },
-    { name: "Chicken Pasta", orders: 210, price: "$11.2" },
-    { name: "Veggie Salad", orders: 180, price: "$7.89" },
-  ];
-
-  const recentOrders = [
-    { id: "#1021", customer: "John Doe", total: "$29.99", status: "Delivered" },
-    {
-      id: "#1022",
-      customer: "Sarah Smith",
-      total: "$18.50",
-      status: "Pending",
-    },
-    {
-      id: "#1023",
-      customer: "David Wilson",
-      total: "$42.10",
-      status: "Delivered",
-    },
-    {
-      id: "#1024",
-      customer: "Emily Clark",
-      total: "$15.75",
-      status: "Cancelled",
-    },
-  ];
-
   return (
     <div className="p-3 sm:p-6 space-y-6 w-full overflow-x-hidden">
       {/* HERO CARD */}

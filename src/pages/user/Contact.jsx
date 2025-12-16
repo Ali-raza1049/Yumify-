@@ -2,17 +2,16 @@ import React from "react";
 import heroBg from "../../assets/images/bg-hero.jpg";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import PageLoad  from "../../hooks/PageLoad"; 
 
 const Contact = () => {
-    const [pageloaded, setPageLoaded] = useState(false);
-    useEffect(() => {
-        setPageLoaded(true);
-        }, []);
+      const pageLoaded = PageLoad();
+    
   return (
                <div className="relative w-full overflow-hidden">
              <motion.div
            initial={{ opacity: 0, x: -100 }}
-           animate={pageloaded ? { opacity: 1, x: 0 } : {}}
+           animate={pageLoaded ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
             className="relative w-full"
              >

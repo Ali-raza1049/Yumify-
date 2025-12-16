@@ -29,7 +29,7 @@
         You haven’t added anything yet. Browse our menu and find something you like.
       </p>
 
-      <Link to="/menu">
+      <Link to="/restaurants">
       <button className="bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition duration-300">
          Go to Menu
      </button>
