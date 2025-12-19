@@ -13,6 +13,7 @@ export function AdminLayout() {
         <div className="p-6">
           <AdminNavbar />
         </div>
+        
         <div className="flex-1 p-6">
           <div className="bg-white rounded-xl shadow-md p-6 h-full">
             <Outlet/>
