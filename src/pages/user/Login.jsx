@@ -1,11 +1,18 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { Mail, Lock, ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../../api";
+=======
+import React from "react";
+import { Mail, Lock, ArrowLeft } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
 
 export function Login() {
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -32,6 +39,11 @@ export function Login() {
     } finally {
       setLoading(false);
     }
+=======
+  const handleLogin = (e) => {
+    e.preventDefault();
+    navigate("/");
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
   };
 
   return (
@@ -39,6 +51,11 @@ export function Login() {
       <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl grid grid-cols-1 md:grid-cols-2 overflow-hidden">
         {/* Left – Login Form */}
         <div className="p-10">
+<<<<<<< HEAD
+=======
+
+          {/* Back to Home */}
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
           <Link
             to="/"
             className="flex items-center gap-2 text-sm text-orange-500 font-medium mb-6 hover:underline"
@@ -53,6 +70,10 @@ export function Login() {
           </p>
 
           <form onSubmit={handleLogin} className="space-y-5">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
             {/* Email */}
             <div className="relative">
               <Mail
@@ -62,8 +83,11 @@ export function Login() {
               <input
                 type="email"
                 placeholder="Email Address"
+<<<<<<< HEAD
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+=======
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
                 required
                 className="w-full pl-11 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
               />
@@ -78,8 +102,11 @@ export function Login() {
               <input
                 type="password"
                 placeholder="Password"
+<<<<<<< HEAD
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+=======
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
                 required
                 className="w-full pl-11 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
               />
@@ -99,10 +126,16 @@ export function Login() {
             {/* Login Button */}
             <button
               type="submit"
+<<<<<<< HEAD
               disabled={loading}
               className="w-full mt-4 py-3 rounded-lg bg-linear-to-r from-orange-500 via-pink-500 to-rose-500 text-white font-semibold shadow-lg hover:opacity-90 transition disabled:opacity-60"
             >
               {loading ? "Signing in..." : "Sign In"}
+=======
+              className="w-full mt-4 py-3 rounded-lg bg-linear-to-r from-orange-500 via-pink-500 to-rose-500 text-white font-semibold shadow-lg hover:opacity-90 transition"
+            >
+              Sign In
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
             </button>
           </form>
 

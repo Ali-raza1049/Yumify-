@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import UserRoutes from "./routes/UserRoutes";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/user/Login";
@@ -43,6 +44,23 @@ function App() {
       <Route path="/admin/*" element={<AdminRoutes />} />
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </Routes>
+=======
+import AdminRoutes from './routes/AdminRoutes'
+import UserRoutes from './routes/UserRoutes'
+import RestaurantRoutes from "./routes/RestaurantRoutes";
+import { OwnerRoutes } from "./routes/OwnerRoutes";
+
+
+function App() {
+  return (
+    <>   
+     {/* <AdminRoutes/>*/}
+       <UserRoutes/> 
+      <RestaurantRoutes/> 
+     {/* <OwnerRoutes/> */}
+    </>
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
   );
+  
 }
 export default App;
