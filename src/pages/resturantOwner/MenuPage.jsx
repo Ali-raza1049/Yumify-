@@ -1,5 +1,5 @@
 import React from 'react'
-import Menu from '../../components/admin/Menu'
+import Menu from '../../components/restaurantOwner/Menu'
 
 
 const MenuPage = () => {

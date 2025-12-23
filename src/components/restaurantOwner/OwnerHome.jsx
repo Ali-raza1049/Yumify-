@@ -2,7 +2,7 @@ import React from 'react'
 import DashBoard from './DashBoard'
 
 
-const AdminHome = () => {
+const OwnerHome = () => {
   return (
     <>
        <DashBoard/>
@@ -11,4 +11,4 @@ const AdminHome = () => {
   )
 }
 
-export default AdminHome
+export default OwnerHome;

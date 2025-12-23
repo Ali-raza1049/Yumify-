@@ -1,5 +1,6 @@
 import React from 'react'
-import DashBoard from '../../components/admin/Dashboard'
+import DashBoard from '../../components/restaurantOwner/DashBoard'
+
 
 const AnalyticsPage = () => {
   return (

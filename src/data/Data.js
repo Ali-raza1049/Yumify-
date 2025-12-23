@@ -1,16 +1,15 @@
 import { Utensils, Award, ShoppingBag, Clock } from "lucide-react";
+import { Users, Store,  DollarSign,TrendingUp, CheckCircle, } from "lucide-react";
 import avater1 from "../assets/images/avater1.jpg";
 import avater2 from "../assets/images/avater2.jpg";
 import avater3 from "../assets/images/avater3.jpg";
-import Crown from "../assets/images/crown-crust.jpg"
-import Fajita from "../assets/images/Fajita.jpg"
-import ChickenDeluxe from "../assets/images/Chickendeluxe.jpg"
-import BeefBurger from "../assets/images/BeefBurger.jpeg"
-import PizzaHub from "../assets/images/pizza-hub.jpg"
-import PizzaBanner from "../assets/images/pizzabanner.jpg"
-import CheeseBurger from "../assets/images/BeefCheeseburger.jpeg"
-
-
+import Crown from "../assets/images/crown-crust.jpg";
+import Fajita from "../assets/images/Fajita.jpg";
+import ChickenDeluxe from "../assets/images/Chickendeluxe.jpg";
+import BeefBurger from "../assets/images/BeefBurger.jpeg";
+import PizzaHub from "../assets/images/pizza-hub.jpg";
+import PizzaBanner from "../assets/images/pizzabanner.jpg";
+import CheeseBurger from "../assets/images/BeefCheeseburger.jpeg";
 
 export const cardsData = [
   {
@@ -148,13 +147,7 @@ export const ordersData = [
   },
 ];
 
-
-export const categories = [
-  "All Categories",
-  "Pizza",
-  "Burger",
-  "Fries",
-];
+export const categories = ["All Categories", "Pizza", "Burger", "Fries"];
 
 export const menuItems = [
   {
@@ -201,151 +194,148 @@ export const menuItems = [
   },
 ];
 
-
-
 export const salesData = [
-    { day: "Mon", sales: 4500, orders: 20 },
-    { day: "Tue", sales: 5200, orders: 18 },
-    { day: "Wed", sales: 4900, orders: 19 },
-    { day: "Thu", sales: 6400, orders: 22 },
-    { day: "Fri", sales: 7800, orders: 25 },
-    { day: "Sat", sales: 9200, orders: 28 },
-    { day: "Sun", sales: 8500, orders: 26 },
-  ];
+  { day: "Mon", sales: 4500, orders: 20 },
+  { day: "Tue", sales: 5200, orders: 18 },
+  { day: "Wed", sales: 4900, orders: 19 },
+  { day: "Thu", sales: 6400, orders: 22 },
+  { day: "Fri", sales: 7800, orders: 25 },
+  { day: "Sat", sales: 9200, orders: 28 },
+  { day: "Sun", sales: 8500, orders: 26 },
+];
 
-  export const categoryData = [
-    { name: "Pizza", value: 35, color: "#8b5cf6" },
-    { name: "Burgers", value: 25, color: "#f43f5e" },
-    { name: "Pasta", value: 20, color: "#fb923c" },
-    { name: "Salads", value: 12, color: "#22c55e" },
-    { name: "Drinks", value: 8, color: "#3b82f6" },
-  ];
+export const categoryData = [
+  { name: "Pizza", value: 35, color: "#8b5cf6" },
+  { name: "Burgers", value: 25, color: "#f43f5e" },
+  { name: "Pasta", value: 20, color: "#fb923c" },
+  { name: "Salads", value: 12, color: "#22c55e" },
+  { name: "Drinks", value: 8, color: "#3b82f6" },
+];
 
-  export  const popularItems = [
-    { name: "Pep Pizza", orders: 320, price: "$12.99" },
-    { name: "Cheese Burger", orders: 270, price: "$9.49" },
-    { name: "Chicken Pasta", orders: 210, price: "$11.2" },
-    { name: "Veggie Salad", orders: 180, price: "$7.89" },
-  ];
+export const popularItems = [
+  { name: "Pep Pizza", orders: 320, price: "$12.99" },
+  { name: "Cheese Burger", orders: 270, price: "$9.49" },
+  { name: "Chicken Pasta", orders: 210, price: "$11.2" },
+  { name: "Veggie Salad", orders: 180, price: "$7.89" },
+];
 
-  export const recentOrders = [
-    { id: "#1021", customer: "John Doe", total: "$29.99", status: "Delivered" },
-    {
-      id: "#1022",
-      customer: "Sarah Smith",
-      total: "$18.50",
-      status: "Pending",
-    },
-    {
-      id: "#1023",
-      customer: "David Wilson",
-      total: "$42.10",
-      status: "Delivered",
-    },
-    {
-      id: "#1024",
-      customer: "Emily Clark",
-      total: "$15.75",
-      status: "Cancelled",
-    },
-  ];
+export const recentOrders = [
+  { id: "#1021", customer: "John Doe", total: "$29.99", status: "Delivered" },
+  {
+    id: "#1022",
+    customer: "Sarah Smith",
+    total: "$18.50",
+    status: "Pending",
+  },
+  {
+    id: "#1023",
+    customer: "David Wilson",
+    total: "$42.10",
+    status: "Delivered",
+  },
+  {
+    id: "#1024",
+    customer: "Emily Clark",
+    total: "$15.75",
+    status: "Cancelled",
+  },
+];
 
+export const customers = [
+  {
+    initials: "AR",
+    name: "Ali Raza",
+    email: "Ali.R@email.com",
+    phone: "+92 0317608655",
+    location: "Lahore, Pk",
+    totalOrders: 47,
+    totalSpent: 1248.5,
+    lastOrder: "2024-11-25",
+    gradient: "from-purple-500 to-pink-500",
+    status: "active",
+  },
+  {
+    initials: "HM",
+    name: "Hamid Munir",
+    email: "hamid.m@email.com",
+    phone: "+92 3250705924",
+    location: "Bhawalpur, Pk",
+    totalOrders: 32,
+    totalSpent: 845.2,
+    lastOrder: "2024-11-12",
+    gradient: "from-pink-500 to-rose-500",
+    status: "active",
+  },
+  {
+    initials: "MZ",
+    name: "M Zahid",
+    email: "zahid.m@email.com",
+    phone: "+92 0313456456",
+    location: "Sialkot, PK",
+    totalOrders: 61,
+    totalSpent: 1542.9,
+    lastOrder: "2024-12-01",
+    gradient: "from-orange-500 to-yellow-500",
+    status: "active",
+  },
+  {
+    initials: "SA",
+    name: "Sayyam Ali",
+    email: "sayyam.m@email.com",
+    phone: "+92 03134578956",
+    location: "Fort Abbas, PK",
+    totalOrders: 61,
+    totalSpent: 1542.9,
+    lastOrder: "2024-12-01",
+    gradient: "from-orange-500 to-yellow-500",
+    status: "active",
+  },
+  {
+    initials: "MW",
+    name: "M waqas",
+    email: "waqas.m@email.com",
+    phone: "+92 031345645667",
+    location: "Haroonabad, PK",
+    totalOrders: 61,
+    totalSpent: 1542.9,
+    lastOrder: "2024-12-01",
+    gradient: "from-orange-500 to-yellow-500",
+    status: "active",
+  },
+];
 
-   export const customers = [
-    {
-      initials: "AR",
-      name: "Ali Raza",
-      email: "Ali.R@email.com",
-      phone: "+92 0317608655",
-      location: "Lahore, Pk",
-      totalOrders: 47,
-      totalSpent: 1248.5,
-      lastOrder: "2024-11-25",
-      gradient: "from-purple-500 to-pink-500",
-      status: "active",
-    },
-    {
-      initials: "HM",
-      name: "Hamid Munir",
-      email: "hamid.m@email.com",
-      phone: "+92 3250705924",
-      location: "Bhawalpur, Pk",
-      totalOrders: 32,
-      totalSpent: 845.2,
-      lastOrder: "2024-11-12",
-      gradient: "from-pink-500 to-rose-500",
-      status: "active",
-    },
-    {
-      initials: "MZ",
-      name: "M Zahid",
-      email: "zahid.m@email.com",
-      phone: "+92 0313456456",
-      location: "Sialkot, PK",
-      totalOrders: 61,
-      totalSpent: 1542.9,
-      lastOrder: "2024-12-01",
-      gradient: "from-orange-500 to-yellow-500",
-      status: "active",
-    },
-    {
-      initials: "SA",
-      name: "Sayyam Ali",
-      email: "sayyam.m@email.com",
-      phone: "+92 03134578956",
-      location: "Fort Abbas, PK",
-      totalOrders: 61,
-      totalSpent: 1542.9,
-      lastOrder: "2024-12-01",
-      gradient: "from-orange-500 to-yellow-500",
-      status: "active",
-    },
-    {
-      initials: "MW",
-      name: "M waqas",
-      email: "waqas.m@email.com",
-      phone: "+92 031345645667",
-      location: "Haroonabad, PK",
-      totalOrders: 61,
-      totalSpent: 1542.9,
-      lastOrder: "2024-12-01",
-      gradient: "from-orange-500 to-yellow-500",
-      status: "active",
-    },
-  ];
+export const stats = [
+  {
+    label: "Total Customers",
+    value: "2,847",
+    bg: "bg-purple-100",
+    color: "text-purple-600",
+    icon: "🧑‍🤝‍🧑",
+  },
+  {
+    label: "Avg. Order Value",
+    value: "$28.45",
+    bg: "bg-green-100",
+    color: "text-green-600",
+    icon: "💲",
+  },
+  {
+    label: "Active Customers",
+    value: "2,341",
+    bg: "bg-blue-100",
+    color: "text-blue-600",
+    icon: "📦",
+  },
+  {
+    label: "New This Month",
+    value: "+184",
+    bg: "bg-orange-100",
+    color: "text-orange-600",
+    icon: "📅",
+  },
+];
 
- export const stats = [
-    {
-      label: "Total Customers",
-      value: "2,847",
-      bg: "bg-purple-100",
-      color: "text-purple-600",
-      icon: "🧑‍🤝‍🧑",
-    },
-    {
-      label: "Avg. Order Value",
-      value: "$28.45",
-      bg: "bg-green-100",
-      color: "text-green-600",
-      icon: "💲",
-    },
-    {
-      label: "Active Customers",
-      value: "2,341",
-      bg: "bg-blue-100",
-      color: "text-blue-600",
-      icon: "📦",
-    },
-    {
-      label: "New This Month",
-      value: "+184",
-      bg: "bg-orange-100",
-      color: "text-orange-600",
-      icon: "📅",
-    },
-  ];
-
-  export const restaurants = [
+export const restaurants = [
   {
     id: 1,
     name: "Burger Paradise",
@@ -374,7 +364,7 @@ export const salesData = [
     time: "30-40 min",
     price: "$$$",
     discount: "25% OFF",
-    image:CheeseBurger,
+    image: CheeseBurger,
   },
 ];
 
@@ -394,20 +384,20 @@ export const restaurantData = [
         title: "Classic Beef Burger",
         desc: "Juicy beef patty with lettuce, tomato, and special sauce",
         price: "$12.99",
-        image:BeefBurger,
+        image: BeefBurger,
       },
       {
         id: 2,
         title: "Chicken Deluxe",
         desc: "Crispy chicken breast with mayo and pickles",
         price: "$11.99",
-        image:ChickenDeluxe,
+        image: ChickenDeluxe,
       },
     ],
     categories: ["All", "Burgers", "Chicken", "Drinks"],
   },
   {
- id: 2,
+    id: 2,
     name: "Pizza Town",
     category: "Pizza, Lahore",
     rating: 4.5,
@@ -420,7 +410,7 @@ export const restaurantData = [
         title: "Fajita pizza",
         desc: "Juicy creamy pizza with more chese",
         price: "$12.99",
-        image:Fajita,
+        image: Fajita,
       },
       {
         id: 2,
@@ -432,7 +422,7 @@ export const restaurantData = [
     ],
     categories: ["All", "pizza", "sides", "Drinks"],
   },
-   {
+  {
     id: 3,
     name: "Daddy Zinger",
     category: "Burger, Lahore",
@@ -447,17 +437,129 @@ export const restaurantData = [
         title: "Classic Beef Burger",
         desc: "Juicy beef patty with lettuce, tomato, and special sauce",
         price: "$12.99",
-        image:BeefBurger,
+        image: BeefBurger,
       },
       {
         id: 2,
         title: "Chicken Deluxe",
         desc: "Crispy chicken breast with mayo and pickles",
         price: "$11.99",
-        image:ChickenDeluxe,
+        image: ChickenDeluxe,
       },
     ],
     categories: ["All", "Burgers", "Chicken", "Drinks"],
   },
-  
+];
+
+export const Cards = [
+  {
+    title: "Total Users",
+    value: "2,543",
+    growth: "+12%",
+    icon: Users,
+  },
+  {
+    title: "Active Restaurants",
+    value: "186",
+    growth: "+8%",
+    icon: Store,
+  },
+  {
+    title: "Total Orders",
+    value: "5,432",
+    growth: "+23%",
+    icon: ShoppingBag,
+  },
+  {
+    title: "Platform Revenue",
+    value: "₹2.4M",
+    growth: "+18%",
+    icon: DollarSign,
+  },
+];
+
+export const weeklyOrders = [
+  { day: "Mon", orders: 45 },
+  { day: "Tue", orders: 52 },
+  { day: "Wed", orders: 48 },
+  { day: "Thu", orders: 60 },
+  { day: "Fri", orders: 72 },
+  { day: "Sat", orders: 85 },
+  { day: "Sun", orders: 78 },
+];
+
+export const monthlyRevenue = [
+  { month: "Jan", revenue: 180000 },
+  { month: "Feb", revenue: 210000 },
+  { month: "Mar", revenue: 195000 },
+  { month: "Apr", revenue: 240000 },
+  { month: "May", revenue: 270000 },
+  { month: "Jun", revenue: 295000 },
+];
+
+export const initialRestaurants = [
+  {
+    id: 1,
+    name: "The Golden Spoon",
+    address: "123 Main St, New York",
+    cuisine: "Italian",
+    status: "Active",
+    orders: 245,
+    revenue: "$12,450",
+  },
+  {
+    id: 2,
+    name: "Sushi Paradise",
+    address: "456 Ocean Ave, Los Angeles",
+    cuisine: "Japanese",
+    status: "Active",
+    orders: 189,
+    revenue: "$9,870",
+  },
+  {
+    id: 3,
+    name: "Burger Heaven",
+    address: "789 Park Blvd, Chicago",
+    cuisine: "American",
+    status: "Pending",
+    orders: 67,
+    revenue: "$3,210",
+  },
+  {
+    id: 4,
+    name: "Spice Route",
+    address: "321 Curry Lane, Houston",
+    cuisine: "Indian",
+    status: "Active",
+    orders: 198,
+    revenue: "$10,230",
+  },
+];
+
+export const Cardstats = [
+  { title: "Total Users", value: 7, change: "+12.5%", color: "bg-blue-500" },
+  { title: "Active Customers", value: 3, change: "+8.2%", color: "bg-green-500" },
+  { title: "Vendors", value: 3, change: "+15.3%", color: "bg-purple-500" },
+  { title: "Pending Approvals", value: 1, change: "", color: "bg-orange-500" },
+];
+
+export const users = [
+  {
+    name: "John Doe",
+    role: "Customer",
+    status: "Active",
+    email: "john@example.com",
+    phone: "+1 234 567 8900",
+    joined: "2024-01-15",
+    orders: "24 orders · ₹12,450",
+  },
+  {
+    name: "Sarah Smith",
+    role: "Vendor",
+    status: "Active",
+    email: "sarah@example.com",
+    phone: "+1 987 654 3210",
+    joined: "2023-12-02",
+    orders: "15 orders · ₹8,320",
+  },
 ];

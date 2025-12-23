@@ -9,7 +9,7 @@ const Hero = () => {
     const pageLoaded = PageLoad();
    
   
-    const handleLinkClick = () => setIsOpen(false);
+    
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -41,7 +41,7 @@ const Hero = () => {
          <Link to="/signin">
             <button
               className="bg-yellow-400 text-orange-700 font-bold px-6 py-3 rounded hover:bg-yellow-300 transition w-full"
-              onClick={handleLinkClick}
+              
             >
               Sign In
             </button>

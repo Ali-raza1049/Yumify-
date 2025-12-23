@@ -1,23 +1,35 @@
 import React from "react";
-import { Facebook, Instagram, Twitter, MapPin, Mail, Phone } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  MapPin,
+  Mail,
+  Phone,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white py-16">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-        
         {/* About */}
         <div>
           <h3 className="text-yellow-500 font-bold text-xl mb-4">Yumify</h3>
           <p className="text-gray-400">
-            Yumify is a modern restaurant offering a fusion of global flavors with a local twist.
-            Fresh, high-quality meals delivered with love.
+            Yumify is a modern restaurant offering a fusion of global flavors
+            with a local twist. Fresh, high-quality meals delivered with love.
           </p>
           <div className="flex space-x-4 mt-4">
-            <a href="#" className="hover:text-yellow-500"><Facebook className="w-5 h-5" /></a>
-            <a href="#" className="hover:text-yellow-500"><Instagram className="w-5 h-5" /></a>
-            <a href="#" className="hover:text-yellow-500"><Twitter className="w-5 h-5" /></a>
+            <a href="#" className="hover:text-yellow-500">
+              <Facebook className="w-5 h-5" />
+            </a>
+            <a href="#" className="hover:text-yellow-500">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="#" className="hover:text-yellow-500">
+              <Twitter className="w-5 h-5" />
+            </a>
           </div>
         </div>
 
@@ -25,14 +37,39 @@ const Footer = () => {
         <div>
           <h4 className="text-yellow-500 font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2">
-
-            <li><Link to="/" className="hover:text-yellow-500">Home</Link></li>
-            <li><Link to="/about" className="hover:text-yellow-500">About</Link></li>
-            <li><Link to="/restaurants" className="hover:text-yellow-500">Restaurants</Link></li>
-            <li><Link to="/service" className="hover:text-yellow-500">Services</Link></li>
-            <li><Link to="/addcart" className="hover:text-yellow-500">Add to Cart</Link></li>
-            <li><Link to="/contact" className="hover:text-yellow-500">Contact</Link></li>
-
+            <li>
+              <Link to="/customer" className="hover:text-yellow-500">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/customer/about" className="hover:text-yellow-500">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/customer/restaurants"
+                className="hover:text-yellow-500"
+              >
+                Restaurants
+              </Link>
+            </li>
+            <li>
+              <Link to="/customer/service" className="hover:text-yellow-500">
+                Services
+              </Link>
+            </li>
+            <li>
+              <Link to="/customer/addcart" className="hover:text-yellow-500">
+                Add to Cart
+              </Link>
+            </li>
+            <li>
+              <Link to="/customer/contact" className="hover:text-yellow-500">
+                Contact
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -72,7 +109,6 @@ const Footer = () => {
             </button>
           </form>
         </div>
-
       </div>
 
       <div className="mt-12 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">

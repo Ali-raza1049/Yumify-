@@ -44,7 +44,7 @@ const Menu = () => {
           </div>
         </div>
 
-        <Link to="/add-item">
+        <Link to="/restaurant-owner/add-item">
         <button className="ml-4 px-5 py-1.5
          rounded-xl text-white font-medium bg-linear-to-r from-purple-600 to-orange-500 shadow-md">
           + Add New Item

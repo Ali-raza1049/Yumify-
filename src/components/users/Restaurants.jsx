@@ -48,7 +48,7 @@ const Restaurants = () => {
 
               {/* FIXED LINK */}
               <Link
-                to={`/view/${item.id}`}
+                to={`/customer/view/${item.id}`}
                 className="mt-4 inline-block w-full text-center bg-red-500 text-white py-2 rounded-lg hover:bg-red-600"
               >
                 View Details

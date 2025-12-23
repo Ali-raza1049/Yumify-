@@ -1,6 +1,6 @@
 import { Search, Bell, MessageCircle } from "lucide-react";
 
-export function AdminNavbar() {
+export function OwnerNavbar() {
   return (
     <div className="sticky top-0 z-50 bg-white w-full px-4 py-3 flex items-center justify-between gap-4 shadow-sm">
       
@@ -34,4 +34,4 @@ export function AdminNavbar() {
   );
 }
 
-export default AdminNavbar;
+export default OwnerNavbar;

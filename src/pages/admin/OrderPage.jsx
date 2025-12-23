@@ -1,15 +1,10 @@
 import React from 'react'
-import Order from '../../components/admin/Order'
+import ManageOrder from '../../components/admin/ManageOrder'
 
-
-
-
-const Orderpage = () => {
+export const OrderPage = () => {
   return (
     <>
-      <Order/>
+    <ManageOrder/>
     </>
   )
 }
-
-export default Orderpage

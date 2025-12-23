@@ -1,20 +1,58 @@
-import React from "react";
-import { Mail, Lock } from "lucide-react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Mail, Lock, ArrowLeft } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import API from "../../api";
 
-export  function Login() {
+export function Login() {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await API.post("/auth/login", { email, password });
+
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.role);
+      if (res.data.role === "Restaurant Owner") {
+        navigate("/restaurant-owner");
+      } else if (res.data.role === "Customer") {
+        navigate("/customer");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-100 via-orange-50 to-pink-50 p-6">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-100 via-orange-50 to-pink-50 p-6 mt-12">
       <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-        
         {/* Left – Login Form */}
         <div className="p-10">
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-sm text-orange-500 font-medium mb-6 hover:underline"
+          >
+            <ArrowLeft size={16} />
+            Back to Home
+          </Link>
+
           <h2 className="text-3xl font-bold text-gray-900">Welcome back</h2>
           <p className="text-gray-500 mt-2 mb-8">
             Login to continue ordering your favorite food
           </p>
 
-          <div className="space-y-5">
+          <form onSubmit={handleLogin} className="space-y-5">
             {/* Email */}
             <div className="relative">
               <Mail
@@ -24,6 +62,9 @@ export  function Login() {
               <input
                 type="email"
                 placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
                 className="w-full pl-11 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
               />
             </div>
@@ -37,34 +78,43 @@ export  function Login() {
               <input
                 type="password"
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
                 className="w-full pl-11 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
               />
             </div>
-          </div>
 
-          {/* Remember / Forgot */}
-          <div className="flex items-center justify-between mt-5 text-sm">
-            <label className="flex items-center gap-2 text-gray-600">
-              <input type="checkbox" className="accent-orange-500" />
-              Remember me
-            </label>
-            <span className="text-orange-500 cursor-pointer font-medium">
-              Forgot password?
-            </span>
-          </div>
+            {/* Remember / Forgot */}
+            <div className="flex items-center justify-between text-sm">
+              <label className="flex items-center gap-2 text-gray-600">
+                <input type="checkbox" className="accent-orange-500" />
+                Remember me
+              </label>
+              <span className="text-orange-500 cursor-pointer font-medium">
+                Forgot password?
+              </span>
+            </div>
 
-          {/* Login Button */}
-          <button className="w-full mt-8 py-3 rounded-lg bg-linear-to-r from-orange-500 via-pink-500 to-rose-500 text-white font-semibold shadow-lg hover:opacity-90 transition">
-            Sign In
-          </button>
+            {/* Login Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full mt-4 py-3 rounded-lg bg-linear-to-r from-orange-500 via-pink-500 to-rose-500 text-white font-semibold shadow-lg hover:opacity-90 transition disabled:opacity-60"
+            >
+              {loading ? "Signing in..." : "Sign In"}
+            </button>
+          </form>
 
           <p className="text-sm text-gray-500 mt-6 text-center">
             Don’t have an account?{" "}
-            <Link to="/signup"  className="text-orange-500 cursor-pointer font-medium">
+            <Link
+              to="/signup"
+              className="text-orange-500 font-medium hover:underline"
+            >
               Sign up
             </Link>
           </p>
-
         </div>
 
         {/* Right – Info Section */}
@@ -81,4 +131,5 @@ export  function Login() {
     </div>
   );
 }
+
 export default Login;

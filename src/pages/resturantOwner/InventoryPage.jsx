@@ -1,5 +1,5 @@
 import React from 'react'
-import Inventory from '../../components/admin/Inventory'
+import Inventory from '../../components/restaurantOwner/Inventory'
 
 const InventoryPage = () => {
   return (

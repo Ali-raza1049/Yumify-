@@ -1,27 +1,28 @@
-import React, { useState} from "react";
-import { ShoppingCartIcon, MagnifyingGlassIcon,} from "@heroicons/react/24/outline";
+import React, { useState } from "react";
+import {
+  ShoppingCartIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import PageLoad from "../../hooks/PageLoad"
+import PageLoad from "../../hooks/PageLoad";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
 
-   const pageLoaded = PageLoad();
+  const pageLoaded = PageLoad();
 
   const handleLinkClick = () => setIsOpen(false);
 
   return (
     <div className="relative z-50">
-      
       <motion.nav
         initial={{ y: -50, opacity: 0 }}
         animate={pageLoaded ? { y: 0, opacity: 1 } : {}}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="fixed w-full top-0 left-0 bg-blue-950/80 backdrop-blur-sm text-white shadow-md py-4 px-6 md:px-10 flex items-center justify-between z-50"
       >
-        
         <div className="text-2xl font-bold hover:text-yellow-300 transition duration-300 cursor-pointer shrink-0">
           🍽️ Yumify
         </div>
@@ -44,21 +45,21 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6">
           <ul className="flex space-x-6 font-bold text-lg">
             <li className="hover:text-yellow-300 transition">
-              <Link to="/">Home</Link>
+              <Link to="/customer">Home</Link>
             </li>
             <li className="hover:text-yellow-300 transition">
-              <Link to="/restaurants">Restaurants</Link>
+              <Link to="/customer/restaurants">Restaurants</Link>
             </li>
             <li className="hover:text-yellow-300 transition">
-              <Link to="/contact">Contact</Link>
+              <Link to="/customer/contact">Contact</Link>
             </li>
           </ul>
 
-          <Link to="/addcart">
+          <Link to="/customer/addcart">
             <ShoppingCartIcon className="w-7 h-7 cursor-pointer hover:text-yellow-300 transition" />
           </Link>
 
-          <Link to="/signin">
+          <Link to="/customer/signin">
             <button className="bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition">
               Sign In
             </button>
@@ -103,7 +104,6 @@ const Navbar = () => {
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden fixed top-16 left-0 w-full bg-blue-950/95 backdrop-blur-lg text-white px-6 py-6 space-y-4 z-40 shadow-lg"
         >
-          
           <div className="relative w-full">
             <MagnifyingGlassIcon className="w-5 h-5 absolute left-3 top-3 text-gray-400" />
             <input
@@ -115,20 +115,24 @@ const Navbar = () => {
             />
           </div>
 
-          
           <ul className="flex flex-col space-y-4 text-lg font-semibold">
             <li className="hover:text-yellow-300 transition">
-              <Link to="/" onClick={handleLinkClick}>Home</Link>
+              <Link to="/" onClick={handleLinkClick}>
+                Home
+              </Link>
             </li>
             <li className="hover:text-yellow-300 transition">
-              <Link to="/restaurants" onClick={handleLinkClick}>Restaurants</Link>
+              <Link to="/restaurants" onClick={handleLinkClick}>
+                Restaurants
+              </Link>
             </li>
             <li className="hover:text-yellow-300 transition">
-              <Link to="/contact" onClick={handleLinkClick}>Contact</Link>
+              <Link to="/contact" onClick={handleLinkClick}>
+                Contact
+              </Link>
             </li>
           </ul>
 
-        
           <Link to="/signin">
             <button
               className="bg-yellow-400 text-orange-700 font-bold px-6 py-3 rounded hover:bg-yellow-300 transition w-full"

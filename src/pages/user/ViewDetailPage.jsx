@@ -6,9 +6,10 @@ import Footer from '../../components/common/Footer'
 const ViewDetailPage = () => {
   return (
     <div>
-        <Navbar/>
+        
+        
       <ViewDetails/>
-      <Footer/>
+      
     </div>
   )
 }
