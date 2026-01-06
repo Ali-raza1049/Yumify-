@@ -1,109 +1,147 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { restaurantData } from "../../data/Data";
-import { Clock, MapPin, Star, Phone } from "lucide-react";
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { MapPin, Star } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getRestaurantById,
+  clearSelectedRestaurant,
+} from "../../redux/slice/RestaurantSlice";
+import { getMenuItems } from "../../redux/slice/MenuSlice";
+import { addToCart } from "../../redux/slice/CartSlice";
+import { toast } from "react-hot-toast";
 
 const ViewDetails = () => {
   const { id } = useParams();
-  const restaurant = restaurantData.find((r) => r.id === Number(id));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [activeCategory, setActiveCategory] = useState("All");
+  const { selectedRestaurant: restaurant, loadingDetail } = useSelector(
+    (state) => state.restaurant
+  );
+  const { menuItems, loading } = useSelector((state) => state.menu);
 
-  if (!restaurant) {
-    return <div className="p-10 text-xl">Restaurant not found.</div>;
+  useEffect(() => {
+    dispatch(getRestaurantById(id));
+    dispatch(getMenuItems(id));
+
+    return () => {
+      dispatch(clearSelectedRestaurant());
+    };
+  }, [dispatch, id]);
+
+  if (loadingDetail || !restaurant) {
+    return <div className="p-10 text-xl">Loading restaurant details...</div>;
   }
+ const handleAddToCart = (item) => {
+  if (!item._id) return;
+
+  dispatch(addToCart(item))
+    .unwrap()
+    .then(res => {
+      console.log("Cart updated:", res);
+      toast.success(`${item.name} added to cart!`);
+       navigate("/customer/addcart");
+    })
+    .catch(err => {
+      console.error("Add to cart error:", err);
+      toast.error(err || "Failed to add to cart");
+    });
+}
 
   return (
-    <div className="w-full mb-10">
-      
-      <div className="w-full h-64 md:h-80 overflow-hidden">
+    <div className="w-full pb-16">
+      {/* Restaurant Banner */}
+      <div className="relative h-[300px] md:h-[400px]">
         <img
-          src={restaurant.banner}
+          src={`http://localhost:5000${restaurant.image}`}
+          alt={restaurant.name}
           className="w-full h-full object-cover"
-          alt="banner"
         />
-      </div>
-
-      {/* Basic Info */}
-      <div className="px-6 mt-6">
-        <h1 className="text-3xl font-semibold">{restaurant.name}</h1>
-        <p className="text-gray-500 text-lg">{restaurant.category}</p>
-
-        {/* Stats */}
-        <div className="flex items-center gap-6 mt-4 text-gray-600">
-          <div className="flex items-center gap-1">
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute bottom-6 left-6 text-white">
+          <h1 className="text-3xl md:text-4xl font-bold">{restaurant.name}</h1>
+          <p className="mt-1 text-lg">{restaurant.cuisine}</p>
+          <div className="flex items-center gap-2 mt-2">
             <Star className="w-5 h-5 text-yellow-400" />
-            <span>{restaurant.rating} Rating</span>
-          </div>
-
-          <div className="flex items-center gap-1">
-            <Clock className="w-5 h-5" />
-            <span>{restaurant.time}</span>
-          </div>
-
-          <div className="flex items-center gap-1">
-            <MapPin className="w-5 h-5 text-red-500" />
-            <span>{restaurant.distance}</span>
-          </div>
-
-          <div className="flex items-center gap-1 text-red-500 cursor-pointer">
-            <Phone className="w-5 h-5" />
-            <span>Contact Restaurant</span>
+            <span className="text-sm">4.5 Rating</span>
           </div>
         </div>
       </div>
 
-      {/* Menu Section */}
-      <div className="px-6 mt-10 flex gap-6">
-        {/* Sidebar Categories */}
-        <div className="w-1/4 hidden md:block">
-          <h3 className="text-lg font-semibold mb-3">Menu Categories</h3>
-
-          <div className="flex flex-col gap-3">
-            {restaurant.categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-lg border ${activeCategory === cat
-                  ? "bg-red-500 text-white"
-                  : "bg-gray-100 text-gray-700"
-                  }`}
-              >
-                {cat}
-              </button>
-            ))}
+      {/* Restaurant Info */}
+      <div className="max-w-7xl mx-auto px-6 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white shadow rounded-2xl p-6">
+          <div className="flex items-center gap-3">
+            <MapPin className="text-red-500" />
+            <span className="text-gray-700">{restaurant.address}</span>
+          </div>
+          <div className="text-gray-700">
+            <strong>Status:</strong> {restaurant.status}
+          </div>
+          <div className="text-gray-700">
+            <strong>Orders:</strong> {restaurant.orders}
           </div>
         </div>
 
-        {/* Menu Items */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {restaurant.menu.map((item) => (
-            <div
-              key={item.id}
-              className="flex gap-4 p-4 rounded-xl shadow bg-white"
-            >
-              <img
-                src={item.image}
-                className="w-32 h-24 object-cover rounded-lg"
-                alt={item.title}
-              />
-              <div>
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-                <p className="text-gray-500 text-sm">{item.desc}</p>
+        {/* Menu Section */}
+        <h2 className="text-2xl font-bold mt-10 mb-6">🍽️ Popular Menu</h2>
 
-                <div className="flex justify-between items-center mt-2">
-                  <span className="text-red-500 font-semibold">
-                    {item.price}
+        {loading ? (
+          <div className="text-center text-xl py-10">Loading menu...</div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {menuItems.map((item) => (
+              <div
+                key={item._id}
+                className="bg-white rounded-2xl shadow hover:shadow-xl transition duration-300 overflow-hidden group"
+              >
+                <div className="relative">
+                  <img
+                    src={
+                      item.image
+                        ? `http://localhost:5000${item.image}`
+                        : "/placeholder.jpg"
+                    }
+                    alt={item.name}
+                    className="w-full h-44 object-cover group-hover:scale-105 transition"
+                  />
+                  <span
+                    className={`absolute top-3 right-3 text-xs px-3 py-1 rounded-full text-white ${
+                      item.status === "Active" ? "bg-green-500" : "bg-gray-500"
+                    }`}
+                  >
+                    {item.status}
+                  </span>
+                </div>
+
+                <div className="p-4">
+                  <span className="text-xs bg-orange-100 text-orange-600 px-3 py-1 rounded-full">
+                    {item.category}
                   </span>
 
-                  <button className="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600">
-                    + Add
-                  </button>
+                  <h3 className="mt-3 text-lg font-semibold">{item.name}</h3>
+
+                  <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                    {item.description}
+                  </p>
+
+                  <div className="flex items-center justify-between mt-4">
+                    <span className="text-lg font-bold text-green-600">
+                      ${item.price}
+                    </span>
+
+                    <button
+                      onClick={() => handleAddToCart(item)}
+                      className="px-4 py-2 text-sm text-white bg-linear-to-r from-green-500 to-emerald-600 rounded-full hover:scale-105 transition"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

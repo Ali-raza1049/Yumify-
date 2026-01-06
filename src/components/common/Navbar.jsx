@@ -4,12 +4,21 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PageLoad from "../../hooks/PageLoad";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
+
+  const navigate = useNavigate();
+  const isLoggedIn = !!localStorage.getItem("token");
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    setIsOpen(false);
+    navigate("/signin");
+  };
 
   const pageLoaded = PageLoad();
 
@@ -45,7 +54,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6">
           <ul className="flex space-x-6 font-bold text-lg">
             <li className="hover:text-yellow-300 transition">
-              <Link to="/customer">Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li className="hover:text-yellow-300 transition">
               <Link to="/customer/restaurants">Restaurants</Link>
@@ -59,13 +68,19 @@ const Navbar = () => {
             <ShoppingCartIcon className="w-7 h-7 cursor-pointer hover:text-yellow-300 transition" />
           </Link>
 
-          <Link to="/customer/signin">
-            <button className="bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition">
-              Sign In
-            </button>
-          </Link>
+          {isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              className="bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition"
+            > Logout </button>
+          ) : (
+            <Link to="/signin">
+              <button className="bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition">
+                Sign In
+              </button>
+            </Link>
+          )}
         </div>
-
         {/* Mobile Menu Toggle */}
         <div className="md:hidden">
           <button
@@ -122,25 +137,32 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="hover:text-yellow-300 transition">
-              <Link to="/restaurants" onClick={handleLinkClick}>
+              <Link to="/customer/restaurants" onClick={handleLinkClick}>
                 Restaurants
               </Link>
             </li>
             <li className="hover:text-yellow-300 transition">
-              <Link to="/contact" onClick={handleLinkClick}>
+              <Link to="/customer/contact" onClick={handleLinkClick}>
                 Contact
               </Link>
             </li>
           </ul>
-
-          <Link to="/signin">
+             
+          <Link to="/customer/addcart">
+            <ShoppingCartIcon className="w-7 h-7 cursor-pointer hover:text-yellow-300 transition" />
+          </Link>          
+          {isLoggedIn ? (
             <button
-              className="bg-yellow-400 text-orange-700 font-bold px-6 py-3 rounded hover:bg-yellow-300 transition w-full"
-              onClick={handleLinkClick}
-            >
-              Sign In
-            </button>
-          </Link>
+              onClick={handleLogout}
+              className="w-full bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition"
+            > Logout </button>
+          ) : (
+            <Link to="/signin" onClick={handleLinkClick}>
+              <button className="w-full bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition">
+                Sign In
+              </button>
+            </Link>
+          )}
         </motion.div>
       )}
     </div>

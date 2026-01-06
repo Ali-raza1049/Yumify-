@@ -1,7 +1,7 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-export const PrivateRoute = ({ children, allowedRoles }) => {
+export const PrivateRoute = ({ allowedRoles }) => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
@@ -10,11 +10,9 @@ export const PrivateRoute = ({ children, allowedRoles }) => {
     return <Navigate to="/signin" replace />;
   }
 
-  
   if (allowedRoles && !allowedRoles.includes(role)) {
     return <Navigate to="/" replace />;
   }
 
-  
-  return children;
+  return <Outlet />;
 };

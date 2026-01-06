@@ -1,38 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Mail, Lock, ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import API from "../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, clearAuthState } from "../../redux/slice/AuthSlice";
 
 export function Login() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const { loading, error, token, role } = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      const res = await API.post("/auth/login", { email, password });
-
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.role);
-      if (res.data.role === "Restaurant Owner") {
-        navigate("/restaurant-owner");
-      } else if (res.data.role === "Customer") {
-        navigate("/customer");
-      } else {
-        navigate("/");
-      }
-    } catch (err) {
-      console.error(err);
-      alert(err.response?.data?.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
+    dispatch(loginUser({ email, password }));
   };
+
+  useEffect(() => {
+    if (token && role) {
+      if (role === "Restaurant Owner") navigate("/restaurant-owner");
+      else if (role === "Customer") navigate("/customer");
+      else navigate("/");
+    }
+
+    if (error) {
+      alert(error);
+      dispatch(clearAuthState());
+    }
+  }, [token, role, error, dispatch, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-100 via-orange-50 to-pink-50 p-6 mt-12">
@@ -55,10 +50,7 @@ export function Login() {
           <form onSubmit={handleLogin} className="space-y-5">
             {/* Email */}
             <div className="relative">
-              <Mail
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                size={18}
-              />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
               <input
                 type="email"
                 placeholder="Email Address"
@@ -71,10 +63,7 @@ export function Login() {
 
             {/* Password */}
             <div className="relative">
-              <Lock
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                size={18}
-              />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
               <input
                 type="password"
                 placeholder="Password"
@@ -83,17 +72,6 @@ export function Login() {
                 required
                 className="w-full pl-11 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
               />
-            </div>
-
-            {/* Remember / Forgot */}
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 text-gray-600">
-                <input type="checkbox" className="accent-orange-500" />
-                Remember me
-              </label>
-              <span className="text-orange-500 cursor-pointer font-medium">
-                Forgot password?
-              </span>
             </div>
 
             {/* Login Button */}
@@ -108,10 +86,7 @@ export function Login() {
 
           <p className="text-sm text-gray-500 mt-6 text-center">
             Don’t have an account?{" "}
-            <Link
-              to="/signup"
-              className="text-orange-500 font-medium hover:underline"
-            >
+            <Link to="/signup" className="text-orange-500 font-medium hover:underline">
               Sign up
             </Link>
           </p>

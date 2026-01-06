@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { User, Mail, Phone, Lock } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import API from "../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { signupUser, clearAuthState } from "../../redux/slice/AuthSlice";
 
 export function Signup() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading, error, successMessage } = useSelector(
+    (state) => state.auth
+  );
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("Customer");
+  const [role, setRole] = useState("");
   const [errors, setErrors] = useState({
     name: "",
     email: "",
@@ -44,7 +48,7 @@ export function Signup() {
     return "";
   };
 
-  const handleSignup = async (e) => {
+   const handleSignup = (e) => {
     e.preventDefault();
 
     const nameError = validateName(name);
@@ -58,23 +62,29 @@ export function Signup() {
       phone: phoneError,
       password: passwordError,
     });
-
-    if (nameError || emailError || phoneError || passwordError) return;
-    try {
-      const res = await API.post("/auth/signup", {
+     dispatch(
+      signupUser({
         name,
         email,
         phone,
         password,
         role,
-      });
-
-      alert(res.data.message);
-      navigate("/signin");
-    } catch (err) {
-      alert(err.response?.data?.message || "Signup failed");
-    }
+      })
+    );
   };
+  useEffect(() => {
+    if (successMessage) {
+      alert(successMessage);
+      dispatch(clearAuthState());
+      navigate("/signin");
+    }
+
+    if (error) {
+      alert(error);
+      dispatch(clearAuthState());
+    }
+  }, [successMessage, error, dispatch, navigate]);
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-100 via-orange-50 to-pink-50 p-6 mt-16">
@@ -236,7 +246,6 @@ export function Signup() {
             {/* Submit Button */}
             <button
               onClick={handleSignup}
-              type="submit"
               className="w-full mt-8 py-3 rounded-lg bg-linear-to-r from-orange-500 via-pink-500 to-rose-500 text-white font-semibold shadow-lg hover:opacity-90 transition"
             >
               Create Account

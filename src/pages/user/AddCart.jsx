@@ -1,39 +1,134 @@
- 
- import React from "react";
-  import { Link } from "react-router-dom";
- 
- export default function Addcart() {
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCart,
+  updateQuantity,
+  removeFromCart,
+} from "../../redux/slice/CartSlice";
+
+export function AddCart() {
+  const dispatch = useDispatch();
+  const { items, loading, error } = useSelector((state) => state.cart);
+  const [localLoading, setLocalLoading] = useState(true);
+
+  useEffect(() => {
+    dispatch(getCart()).finally(() => setLocalLoading(false));
+  }, [dispatch]);
+
+  const handleIncrease = (item) => {
+    if (!item.productId?._id) return;
+    dispatch(
+      updateQuantity({
+        productId: item.productId._id,
+        quantity: item.quantity + 1,
+      })
+    );
+  };
+
+  const handleDecrease = (item) => {
+    if (!item.productId?._id || item.quantity <= 1) return;
+    dispatch(
+      updateQuantity({
+        productId: item.productId._id,
+        quantity: item.quantity - 1,
+      })
+    );
+  };
+
+  const handleRemove = (item) => {
+    if (!item.productId?._id) return;
+    dispatch(removeFromCart(item.productId._id));
+  };
+
+  const total = items.reduce(
+    (acc, item) => acc + item.quantity * (item.productId?.price || 0),
+    0
+  );
+
+  if (localLoading || loading)
+    return <p className="p-10 text-center text-xl">Loading cart...</p>;
+
+  if (error)
+    return <p className="p-10 text-center text-red-500">Error: {error}</p>;
+
+  if (!items.length)
+    return <p className="p-10 text-center text-xl">Your cart is empty</p>;
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
+    <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 pt-10">
       
-      
-      <div className="p-6 bg-white rounded-2xl shadow-lg mb-6">
-        <svg
-          width="70"
-          height="70"
-          className="text-blue-500"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path d="M7 4H5L2 11v2h2l3.6 7.6 1.4-.6 1.4.6L14 13h2v-2l-3-7h-2m-1.12 2h3.24l2.18 5h-7.6l2.18-5m.12 11a1.5 1.5 0 110 3 1.5 1.5 0 010-3m6 0a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
-        </svg>
+      {/* 🛒 Cart Items */}
+      <div className="md:col-span-2 space-y-4">
+        {items.map((item, index) => (
+          <div
+            key={item.productId?._id || index}
+            className="flex gap-4 bg-white p-4 rounded-xl shadow"
+          >
+            {/* Image */}
+            <img
+              src={`http://localhost:5000${item.productId?.image}`}
+              alt={item.productId?.name}
+              className="w-24 h-24 object-cover rounded-lg"
+            />
+
+            {/* Info */}
+            <div className="flex-1">
+              <h3 className="font-semibold text-lg">
+                {item.productId?.name}
+              </h3>
+              <p className="text-gray-500 text-sm">
+                ${item.productId?.price}
+              </p>
+
+              {/* Quantity Controls */}
+              <div className="flex items-center gap-3 mt-3">
+                <button
+                  onClick={() => handleDecrease(item)}
+                  className="w-8 h-8 bg-gray-200 rounded-full"
+                >
+                  −
+                </button>
+                <span className="font-medium">{item.quantity}</span>
+                <button
+                  onClick={() => handleIncrease(item)}
+                  className="w-8 h-8 bg-gray-200 rounded-full"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            {/* Remove */}
+            <button
+              onClick={() => handleRemove(item)}
+              className="text-red-500 text-sm self-start"
+            >
+              Remove
+            </button>
+          </div>
+        ))}
       </div>
 
+      {/* 💳 Order Summary */}
+      <div className="bg-white p-6 rounded-xl shadow space-y-4 h-fit">
+        <h3 className="text-xl font-bold">Order Summary</h3>
 
-      <h2 className="text-3xl font-semibold text-gray-900 mb-2">
-        Your Cart is Empty
-      </h2>
+        <div className="flex justify-between text-gray-600">
+          <span>Items</span>
+          <span>{items.length}</span>
+        </div>
 
-      
-      <p className="text-gray-500 max-w-md text-center mb-6">
-        You haven’t added anything yet. Browse our menu and find something you like.
-      </p>
+        <div className="flex justify-between font-semibold text-lg">
+          <span>Total</span>
+          <span>${total.toFixed(2)}</span>
+        </div>
 
-      <Link to="/restaurants">
-      <button className="bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition duration-300">
-         Go to Menu
-     </button>
-      </Link>
+        <button className="w-full py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition">
+          Proceed to Checkout
+        </button>
+      </div>
     </div>
   );
 }
+
+export default AddCart;

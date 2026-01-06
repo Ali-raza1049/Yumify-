@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React from 'react'
 import Card from "../../components/users/Card.jsx";
 import About from "../../components/users/About.jsx";
 import Menu from "../../components/users/Restaurants.jsx";

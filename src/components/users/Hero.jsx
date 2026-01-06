@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import heroImg from "../../assets/images/hero.png";
 import heroBg from "../../assets/images/bg-hero.jpg";
-import {Link} from 'react-router-dom';
-import PageLoad from '../../hooks/PageLoad';
+import { Link ,useNavigate} from "react-router-dom";
+import PageLoad from "../../hooks/PageLoad";
 const Hero = () => {
-  
-    const pageLoaded = PageLoad();
-   
-  
-    
-
+  const pageLoaded = PageLoad();
+  const isLoggedIn = !!localStorage.getItem("token");
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/signin");
+  };
+  const handleLinkClick = () => setIsOpen(false);
   return (
     <div className="relative w-full h-screen overflow-hidden">
       {/* Background */}
@@ -21,7 +24,6 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative flex flex-col-reverse md:flex-row justify-center items-center text-white h-full bg-blue-950/90">
-        
         {/* Text */}
         <motion.div
           initial={{ opacity: 0, x: -100 }}
@@ -34,18 +36,24 @@ const Hero = () => {
           </h1>
 
           <p className="text-base sm:text-lg md:text-xl mb-6 max-w-md mx-auto md:mx-0">
-            Experience the taste of happiness with Yumify — your favorite
-            dishes made with love and delivered hot!
+            Experience the taste of happiness with Yumify — your favorite dishes
+            made with love and delivered hot!
           </p>
-
-         <Link to="/signin">
+          {isLoggedIn ? (
             <button
-              className="bg-yellow-400 text-orange-700 font-bold px-6 py-3 rounded hover:bg-yellow-300 transition w-full"
-              
+              onClick={handleLogout}
+              className="w-full bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition"
             >
-              Sign In
+              {" "}
+              Logout{" "}
             </button>
+          ) : (
+            <Link to="/signin" onClick={handleLinkClick}>
+              <button className="w-full bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition">
+                Sign In
+              </button>
             </Link>
+          )}
         </motion.div>
 
         {/* Image */}
