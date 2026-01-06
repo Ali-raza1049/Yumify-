@@ -1,39 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Mail, Lock, ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser, clearAuthState } from "../../redux/slice/AuthSlice";
+import API from "../../api";
 
 export function Login() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { loading, error, token, role } = useSelector((state) => state.auth);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginUser({ email, password }));
+    setLoading(true);
+
+    try {
+      const res = await API.post("/auth/login", { email, password });
+
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.role);
+      if (res.data.role === "Restaurant Owner") {
+        navigate("/restaurant-owner");
+      } else if (res.data.role === "Customer") {
+        navigate("/customer");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
-
-  useEffect(() => {
-    if (token && role) {
-      if (role === "Restaurant Owner") navigate("/restaurant-owner");
-      else if (role === "Customer") navigate("/customer");
-      else navigate("/");
-    }
-
-    if (error) {
-      alert(error);
-      dispatch(clearAuthState());
-    }
-  }, [token, role, error, dispatch, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-100 via-orange-50 to-pink-50 p-6 mt-12">
       <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl grid grid-cols-1 md:grid-cols-2 overflow-hidden">
         {/* Left – Login Form */}
         <div className="p-10">
+<<<<<<< HEAD
+=======
+
+          {/* Back to Home */}
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
           <Link
             to="/"
             className="flex items-center gap-2 text-sm text-orange-500 font-medium mb-6 hover:underline"
@@ -48,14 +57,21 @@ export function Login() {
           </p>
 
           <form onSubmit={handleLogin} className="space-y-5">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
             {/* Email */}
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
               <input
                 type="email"
                 placeholder="Email Address"
+<<<<<<< HEAD
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+=======
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
                 required
                 className="w-full pl-11 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
               />
@@ -67,8 +83,11 @@ export function Login() {
               <input
                 type="password"
                 placeholder="Password"
+<<<<<<< HEAD
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+=======
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
                 required
                 className="w-full pl-11 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
               />
@@ -77,10 +96,16 @@ export function Login() {
             {/* Login Button */}
             <button
               type="submit"
+<<<<<<< HEAD
               disabled={loading}
               className="w-full mt-4 py-3 rounded-lg bg-linear-to-r from-orange-500 via-pink-500 to-rose-500 text-white font-semibold shadow-lg hover:opacity-90 transition disabled:opacity-60"
             >
               {loading ? "Signing in..." : "Sign In"}
+=======
+              className="w-full mt-4 py-3 rounded-lg bg-linear-to-r from-orange-500 via-pink-500 to-rose-500 text-white font-semibold shadow-lg hover:opacity-90 transition"
+            >
+              Sign In
+>>>>>>> 6211ea6cc29eb992cc5d92c96aca9ee33c538407
             </button>
           </form>
 
