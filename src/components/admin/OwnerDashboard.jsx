@@ -15,14 +15,26 @@ import {
 } from "recharts";
 import { weeklyOrders, Cards, monthlyRevenue } from "../../data/Data";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../redux/slice/AuthSlice";
 
-export function OwnerDashboard() {
+
+export function OwnerDashboard(){  const dispatch = useDispatch();
+  const navigate = useNavigate(); 
+  const handleLogout = () => 
+    {
+      dispatch(logout());
+      navigate("/signin");
+    };
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Owner Dashboard</h1>
-        <button className="px-4 py-2 rounded-xl border hover:bg-gray-100">
+        <button className="px-4 py-2 rounded-xl border hover:bg-gray-100"
+        onClick={handleLogout}>
           Logout
         </button>
       </div>
@@ -49,11 +61,11 @@ export function OwnerDashboard() {
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <Link
-          to="/admin/manage-restaurant"
+          to="/admin/manage-pending-restaurant"
           className="flex items-center justify-center gap-2 bg-orange-500 text-white py-3 rounded-xl hover:bg-orange-600"
         >
           <Utensils size={18} />
-          Manage Restaurants
+          Manage Pending Restaurant
         </Link>
 
         <Link

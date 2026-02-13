@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from "../../components/users/Card.jsx";
+import Card from "../../components/common/Card.jsx";
 import About from "../../components/users/About.jsx";
 import Menu from "../../components/users/Restaurants.jsx";
 import Reservation from '../../components/users/Reservation.jsx';

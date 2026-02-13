@@ -4,10 +4,12 @@ import { categories } from "../../data/Data";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  getMenuItems,
+  getOwnerMenuItems,
   deleteMenuItem,
   setSelectedItem,
 } from "../../redux/slice/MenuSlice";
+import { IMAGE_BASE_URL }  from "../../utils/Config";
+
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ const Menu = () => {
   const [selectedItemLocal, setSelectedItemLocal] = useState(null);
 
   useEffect(() => {
-    dispatch(getMenuItems());
+    dispatch(getOwnerMenuItems());
   }, [dispatch]);
 
   const filteredItems =
@@ -89,7 +91,7 @@ const Menu = () => {
           >
             <div className="relative">
               <img
-                src={item.image ? `http://localhost:5000${item.image}` : "/placeholder.jpg"}
+                src={item.image ? `${IMAGE_BASE_URL}${item.image}` : "/placeholder.jpg"}
                 alt={item.name}
                 className="w-full h-48 object-cover"
               />

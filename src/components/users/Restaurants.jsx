@@ -1,23 +1,44 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
+import { IMAGE_BASE_URL } from "../../utils/Config";
+import { getActiveRestaurants } from "../../redux/slice/RestaurantSlice";
 
 const Restaurants = () => {
-  const [restaurants, setRestaurants] = useState([]);
+  const dispatch = useDispatch();
 
+  const { restaurants, loading, error } = useSelector(
+    (state) => state.restaurant,
+  );
+
+  const { token } = useSelector((state) => state.auth); 
+
+  
   useEffect(() => {
-    const fetchRestaurants = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/api/restaurants");
-        setRestaurants(res.data);
-      } catch (error) {
-        console.error("Error fetching restaurants:", error);
-      }
-    };
+    dispatch(getActiveRestaurants());
+  }, [dispatch]);
 
-    fetchRestaurants();
-  }, []);
+  
+
+  if (loading) {
+    return (
+      <div className="text-center p-10 text-xl">Loading restaurants...</div>
+    );
+  }
+
+  if (error) {
+    return <div className="text-center p-10 text-red-500">{error}</div>;
+  }
+
+  
+  if (!restaurants.length) {
+    return (
+      <div className="text-center p-10 text-gray-500">
+        No restaurants available
+      </div>
+    );
+  }
 
   return (
     <div className="w-full px-6 mt-6 mb-8">
@@ -35,12 +56,12 @@ const Restaurants = () => {
             <div className="relative">
               {item.image ? (
                 <img
-                  src={`http://localhost:5000${item.image}`}
+                  src={`${IMAGE_BASE_URL}${item.image}`}
                   alt={item.name}
                   className="w-full h-48 object-cover rounded-lg"
                 />
               ) : (
-                <div className="w-full h-48 bg-gray-200 flex items-center justify-center rounded-lg">
+                <div className="w-full h-48 bg-gray-200 flex items-center justify-center rounded-lg text-3xl">
                   🍽️
                 </div>
               )}
@@ -67,8 +88,8 @@ const Restaurants = () => {
               </div>
 
               <div className="flex justify-between text-sm text-gray-600 mt-3">
-                <span>Orders: {item.orders}</span>
-                <span>Revenue: {item.revenue}</span>
+                <span>Orders: {item.orders ?? 0}</span>
+                <span>Revenue: {item.revenue ?? "$0"}</span>
               </div>
 
               <Link

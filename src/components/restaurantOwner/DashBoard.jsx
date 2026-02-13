@@ -1,10 +1,71 @@
-import { LineChart,Line, XAxis, YAxis,Tooltip,ResponsiveContainer, Legend, PieChart,Pie,Cell,} from "recharts";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDashboardData } from "../../redux/slice/DashBoardSlice";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 import { Users, ShoppingCart, DollarSign, Pizza } from "lucide-react";
-import {salesData, categoryData,popularItems,recentOrders} from '../../data/Data'
+
 export function DashBoard() {
+  const dispatch = useDispatch();
+  const {
+    stats,
+    salesData,
+    categoryData,
+    popularItems,
+    recentOrders,
+    loading,
+  } = useSelector((state) => state.dashboard);
+
+  useEffect(() => {
+    dispatch(fetchDashboardData());
+  }, [dispatch]);
+
+  if (loading) return <p className="p-6">Loading dashboard...</p>;
+
+  const statCards = [
+    {
+      label: "Total Sales",
+      value: `$${stats.totalSales || 0}`,
+      icon: DollarSign,
+      bg: "bg-purple-100",
+      text: "text-purple-600",
+    },
+    {
+      label: "Total Orders",
+      value: stats.totalOrders || 0,
+      icon: ShoppingCart,
+      bg: "bg-orange-100",
+      text: "text-orange-500",
+    },
+    {
+      label: "Active Users",
+      value: stats.activeUsers || 0,
+      icon: Users,
+      bg: "bg-green-100",
+      text: "text-green-600",
+    },
+    {
+      label: "Top Product",
+      value: stats.topProduct || "N/A",
+      icon: Pizza,
+      bg: "bg-pink-100",
+      text: "text-pink-500",
+    },
+  ];
+
   return (
     <div className="p-3 sm:p-6 space-y-6 w-full overflow-x-hidden">
-      {/* HERO CARD */}
+      {/* Hero Card */}
       <div className="w-full p-5 sm:p-8 rounded-2xl bg-linear-to-r from-purple-600 to-orange-500 shadow-md text-white">
         <h1 className="text-xl sm:text-3xl font-bold">
           Welcome to Yumify Dashboard! 🍕
@@ -14,38 +75,9 @@ export function DashBoard() {
         </p>
       </div>
 
-      {/* STATS GRID */}
+      {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {[
-          {
-            label: "Total Sales",
-            value: "$400",
-            icon: DollarSign,
-            bg: "bg-purple-100",
-            text: "text-purple-600",
-          },
-          {
-            label: "Total Orders",
-            value: "1,245",
-            icon: ShoppingCart,
-            bg: "bg-orange-100",
-            text: "text-orange-500",
-          },
-          {
-            label: "Active Users",
-            value: "842",
-            icon: Users,
-            bg: "bg-green-100",
-            text: "text-green-600",
-          },
-          {
-            label: "Top Product",
-            value: "Pep Pizza",
-            icon: Pizza,
-            bg: "bg-pink-100",
-            text: "text-pink-500",
-          },
-        ].map((item, i) => (
+        {statCards.map((item, i) => (
           <div
             key={i}
             className="bg-white p-4 sm:p-6 rounded-2xl shadow flex items-center gap-4"
@@ -63,15 +95,14 @@ export function DashBoard() {
         ))}
       </div>
 
-      {/* CHARTS */}
+      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* LINE CHART */}
+        {/* Line Chart */}
         <div className="bg-white p-4 sm:p-6 rounded-2xl shadow lg:col-span-2">
           <h2 className="text-lg font-semibold">Sales Overview</h2>
           <p className="text-gray-500 text-xs sm:text-sm mb-3">
             Weekly performance
           </p>
-
           <div className="w-full h-52 sm:h-72">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={salesData}>
@@ -96,11 +127,10 @@ export function DashBoard() {
           </div>
         </div>
 
-        {/* PIE CHART */}
+        {/* Pie Chart */}
         <div className="bg-white p-4 sm:p-6 rounded-2xl shadow">
           <h2 className="text-lg font-semibold">Category Sales</h2>
           <p className="text-gray-500 text-xs sm:text-sm mb-2">Distribution</p>
-
           <div className="w-full h-52 sm:h-64 flex justify-center">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -118,7 +148,6 @@ export function DashBoard() {
               </PieChart>
             </ResponsiveContainer>
           </div>
-
           <ul className="mt-4 space-y-1 sm:space-y-2">
             {categoryData.map((item, i) => (
               <li
@@ -139,12 +168,11 @@ export function DashBoard() {
         </div>
       </div>
 
-      {/* POPULAR ITEMS + RECENT ORDERS */}
+      {/* Popular Items + Recent Orders */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* POPULAR ITEMS */}
+        {/* Popular Items */}
         <div className="bg-white p-4 sm:p-6 rounded-2xl shadow">
           <h2 className="text-lg font-semibold mb-3">Popular Items</h2>
-
           <ul className="space-y-3 sm:space-y-4">
             {popularItems.map((item, i) => (
               <li
@@ -161,10 +189,9 @@ export function DashBoard() {
           </ul>
         </div>
 
-        {/* RECENT ORDERS */}
+        {/* Recent Orders */}
         <div className="bg-white p-4 sm:p-6 rounded-2xl shadow">
           <h2 className="text-lg font-semibold mb-3">Recent Orders</h2>
-
           <ul className="space-y-3 sm:space-y-4">
             {recentOrders.map((order, i) => (
               <li
@@ -175,7 +202,6 @@ export function DashBoard() {
                   <p className="font-semibold">{order.id}</p>
                   <p className="text-gray-500 text-xs">{order.customer}</p>
                 </div>
-
                 <div className="text-right">
                   <p className="font-semibold">{order.total}</p>
                   <p
@@ -183,8 +209,8 @@ export function DashBoard() {
                       order.status === "Delivered"
                         ? "text-green-600"
                         : order.status === "Pending"
-                        ? "text-yellow-500"
-                        : "text-red-500"
+                          ? "text-yellow-500"
+                          : "text-red-500"
                     }`}
                   >
                     {order.status}

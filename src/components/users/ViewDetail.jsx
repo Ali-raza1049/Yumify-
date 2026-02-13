@@ -7,9 +7,8 @@ import {
   clearSelectedRestaurant,
 } from "../../redux/slice/RestaurantSlice";
 import { getMenuItems } from "../../redux/slice/MenuSlice";
-import { addToCart } from "../../redux/slice/CartSlice";
 import { toast } from "react-hot-toast";
-
+import { IMAGE_BASE_URL } from "../../utils/Config";
 const ViewDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -32,28 +31,38 @@ const ViewDetails = () => {
   if (loadingDetail || !restaurant) {
     return <div className="p-10 text-xl">Loading restaurant details...</div>;
   }
+  // ViewDetails.jsx
  const handleAddToCart = (item) => {
-  if (!item._id) return;
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  dispatch(addToCart(item))
-    .unwrap()
-    .then(res => {
-      console.log("Cart updated:", res);
-      toast.success(`${item.name} added to cart!`);
-       navigate("/customer/addcart");
-    })
-    .catch(err => {
-      console.error("Add to cart error:", err);
-      toast.error(err || "Failed to add to cart");
+  
+  if (cart.length > 0 && cart[0].restaurantId !== restaurant._id) {
+    toast.error("You can order from only one restaurant at a time");
+    return;
+  }
+
+  const existingItem = cart.find((cartItem) => cartItem._id === item._id);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      ...item,
+      quantity: 1,
+      restaurantId: restaurant._id,
     });
-}
+  }
 
+  localStorage.setItem("cart", JSON.stringify(cart));
+  window.dispatchEvent(new Event("cartUpdated"));
+  toast.success(`${item.name} added to cart!`);
+};
   return (
     <div className="w-full pb-16">
       {/* Restaurant Banner */}
       <div className="relative h-[300px] md:h-[400px]">
         <img
-          src={`http://localhost:5000${restaurant.image}`}
+          src={`${IMAGE_BASE_URL}${restaurant.image}`}
           alt={restaurant.name}
           className="w-full h-full object-cover"
         />
@@ -99,7 +108,7 @@ const ViewDetails = () => {
                   <img
                     src={
                       item.image
-                        ? `http://localhost:5000${item.image}`
+                        ? `${IMAGE_BASE_URL}${item.image}`
                         : "/placeholder.jpg"
                     }
                     alt={item.name}

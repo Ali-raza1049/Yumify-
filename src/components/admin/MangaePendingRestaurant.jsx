@@ -1,18 +1,31 @@
+// src/components/admin/AdminPendingRestaurantTable.jsx
+import { IMAGE_BASE_URL } from "../../utils/Config";
+
 const StatusBadge = ({ status }) => {
   const base = "px-3 py-1 rounded-full text-xs font-medium";
-  const styles =
-    status === "Active"
-      ? "bg-green-100 text-green-700"
-      : "bg-gray-100 text-gray-700";
+  let styles = "bg-gray-100 text-gray-700";
+
+  if (status === "Active") styles = "bg-green-100 text-green-700";
+  else if (status === "Pending") styles = "bg-yellow-100 text-yellow-800";
+  else if (status === "Rejected") styles = "bg-red-100 text-red-700";
 
   return <span className={`${base} ${styles}`}>{status}</span>;
 };
-const RestaurantTable = ({ restaurants, onDelete }) => {
+
+const ManagePendingRestaurants = ({ restaurants = [], onActivate }) => {
+  if (!restaurants.length) {
+    return (
+      <div className="bg-white rounded-xl shadow border p-6 text-center text-gray-500">
+        No pending restaurants
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white rounded-xl shadow border">
       <div className="p-4 border-b">
-        <h2 className="font-semibold">All Restaurants</h2>
-        <p className="text-sm text-gray-500">List of all restaurants</p>
+        <h2 className="font-semibold">Pending Restaurants</h2>
+        <p className="text-sm text-gray-500">Approve restaurants to make them active</p>
       </div>
 
       <table className="w-full text-sm">
@@ -34,7 +47,7 @@ const RestaurantTable = ({ restaurants, onDelete }) => {
               <td className="px-4 py-4 flex items-center gap-3">
                 {r.image ? (
                   <img
-                    src={`http://localhost:5000${r.image}`}
+                    src={`${IMAGE_BASE_URL}${r.image}`}
                     className="w-10 h-10 rounded-lg object-cover"
                     alt={r.name}
                   />
@@ -54,12 +67,14 @@ const RestaurantTable = ({ restaurants, onDelete }) => {
               <td className="px-4 py-4">{r.orders}</td>
               <td className="px-4 py-4">{r.revenue}</td>
               <td className="px-4 py-4 text-right">
-                <button
-                  onClick={() => onDelete(r._id)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  🗑️
-                </button>
+                {r.status === "Pending" && (
+                  <button
+                    onClick={() => onActivate(r._id)}
+                    className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                  >
+                    Activate
+                  </button>
+                )}
               </td>
             </tr>
           ))}
@@ -69,4 +84,4 @@ const RestaurantTable = ({ restaurants, onDelete }) => {
   );
 };
 
-export default RestaurantTable;
+export default ManagePendingRestaurants;

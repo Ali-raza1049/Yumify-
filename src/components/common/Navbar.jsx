@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   ShoppingCartIcon,
   MagnifyingGlassIcon,
@@ -10,6 +10,7 @@ import PageLoad from "../../hooks/PageLoad";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [cartCount, setCartCount] = useState(0);
 
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem("token");
@@ -23,6 +24,20 @@ const Navbar = () => {
   const pageLoaded = PageLoad();
 
   const handleLinkClick = () => setIsOpen(false);
+   const updateCartCount = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
+    setCartCount(totalQuantity);
+  };
+  useEffect(() => {
+  updateCartCount(); 
+
+  const handleCartUpdate = () => updateCartCount();
+  window.addEventListener("cartUpdated", handleCartUpdate);
+
+  return () => window.removeEventListener("cartUpdated", handleCartUpdate);
+}, []);
+
 
   return (
     <div className="relative z-50">
@@ -64,15 +79,24 @@ const Navbar = () => {
             </li>
           </ul>
 
-          <Link to="/customer/addcart">
-            <ShoppingCartIcon className="w-7 h-7 cursor-pointer hover:text-yellow-300 transition" />
-          </Link>
-
+          <div className="relative cursor-pointer">
+            <Link to="/customer/addcart">
+              <ShoppingCartIcon className="w-7 h-7 hover:text-yellow-300 transition" />
+            </Link>
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </div>
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
               className="bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition"
-            > Logout </button>
+            >
+              {" "}
+              Logout{" "}
+            </button>
           ) : (
             <Link to="/signin">
               <button className="bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition">
@@ -147,15 +171,25 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-             
-          <Link to="/customer/addcart">
-            <ShoppingCartIcon className="w-7 h-7 cursor-pointer hover:text-yellow-300 transition" />
-          </Link>          
+
+          <div className="relative cursor-pointer">
+            <Link to="/customer/addcart">
+              <ShoppingCartIcon className="w-7 h-7 hover:text-yellow-300 transition" />
+            </Link>
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </div>
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
               className="w-full bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition"
-            > Logout </button>
+            >
+              {" "}
+              Logout{" "}
+            </button>
           ) : (
             <Link to="/signin" onClick={handleLinkClick}>
               <button className="w-full bg-yellow-400 text-orange-700 font-bold px-5 py-2 rounded hover:bg-yellow-300 transition">

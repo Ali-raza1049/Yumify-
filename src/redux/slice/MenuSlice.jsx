@@ -6,10 +6,28 @@ export const getMenuItems = createAsyncThunk(
   "menu/getMenuItems",
   async (restaurantId, { rejectWithValue }) => {
     try {
-      const res = await API.get(`/menu-items?restaurant=${restaurantId}`);
+      const res = await API.get(
+        `/menu-items/public?restaurant=${restaurantId}`
+      );
       return res.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || "Failed to fetch menu items");
+      return rejectWithValue(
+        err.response?.data?.message || "Failed to fetch menu items"
+      );
+    }
+  }
+);
+
+export const getOwnerMenuItems = createAsyncThunk(
+  "menu/getOwnerMenuItems",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await API.get("/menu-items/owner");
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(
+        err.response?.data?.message || "Failed to fetch owner menu items"
+      );
     }
   }
 );
@@ -137,7 +155,7 @@ const menuSlice = createSlice({
         state.error = action.payload;
       });
 
-    // -------- DELETE MENU ITEM --------
+    
     builder
       .addCase(deleteMenuItem.pending, (state) => {
         state.loading = true;

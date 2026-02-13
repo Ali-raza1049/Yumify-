@@ -7,7 +7,7 @@ const AddRestaurantModal = ({ formData, setFormData, onClose, onSubmit }) => {
         <h3 className="text-lg font-semibold mb-4">Add Restaurant</h3>
 
         <form onSubmit={onSubmit} className="space-y-3">
-          {/* Name */}
+          
           <input
             className="w-full border rounded px-3 py-2"
             placeholder="Restaurant Name"
@@ -16,7 +16,6 @@ const AddRestaurantModal = ({ formData, setFormData, onClose, onSubmit }) => {
             required
           />
 
-          {/* Address */}
           <input
             className="w-full border rounded px-3 py-2"
             placeholder="Address"
@@ -24,8 +23,6 @@ const AddRestaurantModal = ({ formData, setFormData, onClose, onSubmit }) => {
             onChange={(e) => setFormData({ ...formData, address: e.target.value })}
             required
           />
-
-          {/* Cuisine */}
           <input
             className="w-full border rounded px-3 py-2"
             placeholder="Cuisine"
@@ -33,18 +30,15 @@ const AddRestaurantModal = ({ formData, setFormData, onClose, onSubmit }) => {
             onChange={(e) => setFormData({ ...formData, cuisine: e.target.value })}
             required
           />
-
-          {/* Status */}
           <select
             className="w-full border rounded px-3 py-2"
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value })}
           >
             <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
+            <option value="Pending">Pending</option>
+            <option value="Rejected">Rejected</option>
           </select>
-
-          {/* Orders */}
           <input
             type="number"
             className="w-full border rounded px-3 py-2"
@@ -58,12 +52,11 @@ const AddRestaurantModal = ({ formData, setFormData, onClose, onSubmit }) => {
           <input
             type="text"
             className="w-full border rounded px-3 py-2"
-            placeholder="Revenue (e.g. $5000)"
+            placeholder="Revenue (e.g. Rs.5000)"
             value={formData.revenue}
             onChange={(e) => setFormData({ ...formData, revenue: e.target.value })}
           />
 
-          {/* Image */}
           <input
             type="file"
             accept="image/*"

@@ -1,134 +1,126 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCart,
-  updateQuantity,
-  removeFromCart,
-} from "../../redux/slice/CartSlice";
+import CartItem from "../../components/users/CartItem";
+import OrderSummary from "../../components/users/OrderSummary";
+import { createOrder } from "../../redux/slice/OrderSlice";
 
-export function AddCart() {
+const AddCart = () => {
   const dispatch = useDispatch();
-  const { items, loading, error } = useSelector((state) => state.cart);
-  const [localLoading, setLocalLoading] = useState(true);
+ const loading = useSelector((state) => state.orders?.loading) || false;
+
+
+  const [cart, setCart] = useState([]);
+  const [paymentMethod, setPaymentMethod] = useState("easypaisa");
+
+  const user = useSelector((state) => state.auth?.user);
 
   useEffect(() => {
-    dispatch(getCart()).finally(() => setLocalLoading(false));
-  }, [dispatch]);
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(storedCart);
+  }, []);
 
-  const handleIncrease = (item) => {
-    if (!item.productId?._id) return;
-    dispatch(
-      updateQuantity({
-        productId: item.productId._id,
-        quantity: item.quantity + 1,
-      })
+  const updateCart = (newCart) => {
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    window.dispatchEvent(new Event("cartUpdated"));
+  };
+
+  const handleIncrease = (id) =>
+    updateCart(
+      cart.map((item) =>
+        item._id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
     );
-  };
 
-  const handleDecrease = (item) => {
-    if (!item.productId?._id || item.quantity <= 1) return;
-    dispatch(
-      updateQuantity({
-        productId: item.productId._id,
-        quantity: item.quantity - 1,
-      })
+  const handleDecrease = (id) =>
+    updateCart(
+      cart.map((item) =>
+        item._id === id
+          ? { ...item, quantity: Math.max(1, item.quantity - 1) }
+          : item
+      )
     );
-  };
 
-  const handleRemove = (item) => {
-    if (!item.productId?._id) return;
-    dispatch(removeFromCart(item.productId._id));
-  };
+  const handleDelete = (id) =>
+    updateCart(cart.filter((item) => item._id !== id));
 
-  const total = items.reduce(
-    (acc, item) => acc + item.quantity * (item.productId?.price || 0),
+  const subtotal = cart.reduce(
+    (acc, item) => acc + item.price * item.quantity,
     0
   );
+  const tax = subtotal * 0.1;
+  const total = subtotal + tax;
 
-  if (localLoading || loading)
-    return <p className="p-10 text-center text-xl">Loading cart...</p>;
+  const handleCheckout = async () => {
+    if (!cart.length) return toast.error("Cart is empty");
 
-  if (error)
-    return <p className="p-10 text-center text-red-500">Error: {error}</p>;
+    const restaurantId = cart[0]?.restaurantId;
+    if (!restaurantId) {
+      console.error("Cart missing restaurantId:", cart);
+      return toast.error("Invalid cart data. Please re-add items.");
+    }
 
-  if (!items.length)
-    return <p className="p-10 text-center text-xl">Your cart is empty</p>;
+    const orderData = {
+      restaurantId,
+      items: cart.map((item) => ({
+        itemId: item._id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+      })),
+      total,
+      paymentMethod,
+    };
+
+    console.log("Creating order:", orderData);
+
+    try {
+      await dispatch(createOrder(orderData)).unwrap();
+      toast.success("Order placed successfully!");
+
+      localStorage.removeItem("cart");
+      setCart([]);
+      window.dispatchEvent(new Event("cartUpdated"));
+    } catch (err) {
+      console.error("Order failed:", err);
+      toast.error(err || "Order failed");
+    }
+  };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 pt-10">
-      
-      {/* 🛒 Cart Items */}
-      <div className="md:col-span-2 space-y-4">
-        {items.map((item, index) => (
-          <div
-            key={item.productId?._id || index}
-            className="flex gap-4 bg-white p-4 rounded-xl shadow"
-          >
-            {/* Image */}
-            <img
-              src={`http://localhost:5000${item.productId?.image}`}
-              alt={item.productId?.name}
-              className="w-24 h-24 object-cover rounded-lg"
+    <div className="max-w-5xl mx-auto p-6 flex flex-col lg:flex-row gap-6">
+      <div className="flex-1 space-y-4">
+        <h1 className="text-3xl font-bold mb-6">Your Cart</h1>
+
+        {cart.length === 0 ? (
+          <p>Your cart is empty.</p>
+        ) : (
+          cart.map((item) => (
+            <CartItem
+              key={item._id}
+              item={item}
+              onIncrease={handleIncrease}
+              onDecrease={handleDecrease}
+              onDelete={handleDelete}
             />
-
-            {/* Info */}
-            <div className="flex-1">
-              <h3 className="font-semibold text-lg">
-                {item.productId?.name}
-              </h3>
-              <p className="text-gray-500 text-sm">
-                ${item.productId?.price}
-              </p>
-
-              {/* Quantity Controls */}
-              <div className="flex items-center gap-3 mt-3">
-                <button
-                  onClick={() => handleDecrease(item)}
-                  className="w-8 h-8 bg-gray-200 rounded-full"
-                >
-                  −
-                </button>
-                <span className="font-medium">{item.quantity}</span>
-                <button
-                  onClick={() => handleIncrease(item)}
-                  className="w-8 h-8 bg-gray-200 rounded-full"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-
-            {/* Remove */}
-            <button
-              onClick={() => handleRemove(item)}
-              className="text-red-500 text-sm self-start"
-            >
-              Remove
-            </button>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
-      {/* 💳 Order Summary */}
-      <div className="bg-white p-6 rounded-xl shadow space-y-4 h-fit">
-        <h3 className="text-xl font-bold">Order Summary</h3>
-
-        <div className="flex justify-between text-gray-600">
-          <span>Items</span>
-          <span>{items.length}</span>
-        </div>
-
-        <div className="flex justify-between font-semibold text-lg">
-          <span>Total</span>
-          <span>${total.toFixed(2)}</span>
-        </div>
-
-        <button className="w-full py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition">
-          Proceed to Checkout
-        </button>
-      </div>
+      {cart.length > 0 && (
+        <OrderSummary
+          subtotal={subtotal}
+          tax={tax}
+          total={total}
+          paymentMethod={paymentMethod}
+          setPaymentMethod={setPaymentMethod}
+          handleCheckout={handleCheckout}
+          loading={loading}
+        />
+      )}
     </div>
   );
-}
+};
 
 export default AddCart;

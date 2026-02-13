@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Card from "../../components/users/Card";
+import Card from "../../components/common/Card";
 import heroBg from "../../assets/images/bg-hero.jpg";
 import { motion } from "framer-motion";
 import PageLoad from "../../hooks/PageLoad";

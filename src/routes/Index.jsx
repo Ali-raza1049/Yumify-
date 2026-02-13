@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import { PrivateRoute } from "../utils/PrivateRoute"
+import { PrivateRoute } from "../utils/PrivateRoute";
 
 // USER
 import UserLayout from "../components/common/Userlayout";
@@ -22,22 +22,19 @@ import OwnerLayout from "../components/restaurantOwner/OwnerLayout";
 import OwnerHome from "../components/restaurantOwner/OwnerHome";
 import MenuPage from "../pages/resturantOwner/MenuPage";
 import AddItemPage from "../pages/resturantOwner/AddItemPage";
-import InventoryPage from "../pages/resturantOwner/InventoryPage";
-import AnalyticsPage from "../pages/resturantOwner/AnalyticsPage";
+import RestaurantManagementPage from "../pages/resturantOwner/RestaurantManagementPage";
 import OwnerOrderPage from "../pages/resturantOwner/OrderPage";
 import CustomerManagement from "../pages/resturantOwner/CustomerManagement";
 
 // ADMIN (UNPROTECTED)
 import { DashboardPage } from "../pages/admin/DashboardPage";
-import RestaurantManagementPage from "../pages/admin/RestaurantManagementPage";
 import { OrderPage as AdminOrderPage } from "../pages/admin/OrderPage";
 import { UserManagementPage } from "../pages/admin/UserManagementPage";
+import PendingRestaurantPage  from "../pages/admin/PendingRestaurantPage";
 
 const Index = () => {
   return (
     <Routes>
-
-      
       <Route path="/" element={<UserLayout />}>
         <Route index element={<Home />} />
         <Route path="signin" element={<Login />} />
@@ -46,7 +43,10 @@ const Index = () => {
       </Route>
 
       {/* ================= CUSTOMER (PROTECTED) ================= */}
-      <Route path="/customer" element={<PrivateRoute allowedRoles={["Customer"]} />}>
+      <Route
+        path="/customer"
+        element={<PrivateRoute allowedRoles={["Customer"]} />}
+      >
         <Route element={<UserLayout />}>
           <Route index element={<Home />} />
           <Route path="restaurants" element={<RestaurantPage />} />
@@ -60,24 +60,28 @@ const Index = () => {
       </Route>
 
       {/* ================= OWNER (PROTECTED) ================= */}
-<Route element={<PrivateRoute allowedRoles={["Restaurant Owner"]} />}>
-  <Route path="/restaurant-owner" element={<OwnerLayout />}>
-    <Route index element={<OwnerHome />} />
-    <Route path="orders" element={<OwnerOrderPage />} />
-    <Route path="menu" element={<MenuPage />} />
-    <Route path="add-item" element={<AddItemPage />} />
-    <Route path="inventory" element={<InventoryPage />} />
-    <Route path="analytics" element={<AnalyticsPage />} />
-    <Route path="customer" element={<CustomerManagement />} />
-  </Route>
-</Route>
+      <Route element={<PrivateRoute allowedRoles={["Restaurant Owner"]} />}>
+        <Route path="/restaurant-owner" element={<OwnerLayout />}>
+          <Route index element={<OwnerHome />} />
+          <Route path="orders" element={<OwnerOrderPage />} />
+          <Route path="menu" element={<MenuPage />} />
+          <Route path="add-item" element={<AddItemPage />} />
+          <Route
+            path="manage-restaurant"
+            element={<RestaurantManagementPage />}
+          />
+          <Route path="customer" element={<CustomerManagement />} />
+        </Route>
+      </Route>
 
       {/* ================= ADMIN (PUBLIC) ================= */}
-      <Route path="/admin">
-        <Route index element={<DashboardPage />} />
-        <Route path="manage-restaurant" element={<RestaurantManagementPage />} />
-        <Route path="manage-order" element={<AdminOrderPage />} />
-        <Route path="manage-user" element={<UserManagementPage />} />
+      <Route element={<PrivateRoute allowedRoles={["Admin"]} />}>
+        <Route path="/admin">
+          <Route index element={<DashboardPage />} />
+          <Route path="manage-order" element={<AdminOrderPage />} />
+          <Route path="manage-user" element={<UserManagementPage />} />
+          <Route path="manage-pending-restaurant" element={<PendingRestaurantPage />} />
+        </Route>
       </Route>
 
     </Routes>

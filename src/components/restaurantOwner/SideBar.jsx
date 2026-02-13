@@ -8,12 +8,18 @@ import {
   Settings,
   Bell,
   X,
+  LogOut,
   Menu as MenuIcon,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/slice/AuthSlice";
 
 export function Sidebar() {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -29,6 +35,10 @@ export function Sidebar() {
     return () => document.removeEventListener("click", handleClick);
   }, [open]);
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/signin");
+  };
   return (
     <>
       {/* Mobile menu button */}
@@ -87,11 +97,11 @@ export function Sidebar() {
           </Link>
 
           <Link
-            to="/restaurant-owner/inventory"
+            to="/restaurant-owner/manage-restaurant"
             className="p-3 rounded-xl hover:bg-gray-100 flex items-center gap-3"
           >
             <Package size={20} />
-            Inventory
+            Resturant Management
           </Link>
 
           <Link
@@ -109,15 +119,20 @@ export function Sidebar() {
             <BarChart size={20} />
             Analytics
           </Link>
-
           <div className="mt-auto bg-gray-100 p-4 rounded-xl flex items-center gap-3">
             <div className="bg-purple-500 text-white w-10 h-10 flex items-center justify-center rounded-full">
-              JD
+              {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
             </div>
-            <div>
-              <p className="font-semibold">John Doe</p>
-              <p className="text-sm text-gray-500">Restaurant Owner</p>
+            <div className="flex-1">
+              <p className="font-semibold">{user?.name || "User"}</p>
+              <p className="text-sm text-gray-500">{user?.role || "Restaurant Owner"}</p>
             </div>
+            <button
+              onClick={handleLogout}
+              className="text-red-500 hover:text-red-700"
+            >
+              <LogOut size={20} />
+            </button>
           </div>
         </nav>
       </aside>
